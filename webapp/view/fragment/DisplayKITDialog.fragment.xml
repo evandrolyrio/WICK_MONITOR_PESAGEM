@@ -1,0 +1,27 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:fb="sap.ui.comp.filterbar" xmlns:core="sap.ui.core" xmlns:f="sap.ui.layout.form"
+	xmlns:l="sap.ui.layout">
+	<Dialog title="Critério de seleção">
+		<f:SimpleForm>
+			<l:VerticalLayout>
+				<Label text="Centro"/>
+				<Input value="{/Werks}" showSuggestion="true" showTableSuggestionValueHelp="false"
+					suggestionItemSelected="suggestionItemSelected"></Input>
+				<Label text="Material"/>
+				<Input value="{/Matnr}" showSuggestion="true" showTableSuggestionValueHelp="false"
+					suggestionItemSelected="suggestionItemSelected"></Input>	
+				<Label text="Ordem de produção"/>
+				<Input value="{/Aufnr}" showSuggestion="true" showTableSuggestionValueHelp="false"
+					suggestionItemSelected="suggestionItemSelected"></Input>	
+				<Label text="Componente"/>					
+				<Input value="{/Idnrk}" showSuggestion="true" showTableSuggestionValueHelp="false"
+					suggestionItemSelected="suggestionItemSelected"></Input>					
+			</l:VerticalLayout>
+		</f:SimpleForm>
+		<beginButton>
+			<Button type="Accept" text="Ok" press="goToKIT" enabled="true"/>
+		</beginButton>
+		<endButton>
+			<Button type="Transparent" text="Cancelar" press="onCancelChangeVsolm"/>
+		</endButton>
+	</Dialog>
+</core:FragmentDefinition>

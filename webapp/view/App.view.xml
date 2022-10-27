@@ -1,0 +1,4 @@
+<mvc:View controllerName="Monitor.PesagemZPP_MONIT_PESAGEM.controller.App" xmlns:html="http://www.w3.org/1999/xhtml" height="100%"
+	xmlns:mvc="sap.ui.core.mvc" displayBlock="true" xmlns="sap.f" xmlns:m="sap.m">
+	<FlexibleColumnLayout id="fcl" stateChange="onStateChanged" layout="{routingModel>/layout}"/>
+</mvc:View>

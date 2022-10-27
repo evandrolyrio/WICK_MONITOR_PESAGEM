@@ -1,0 +1,143 @@
+{
+	"_version": "1.7.0",
+	"sap.app": {
+		"id": "Monitor.PesagemZPP_MONIT_PESAGEM",
+		"type": "application",
+		"i18n": "i18n/i18n.properties",
+		"applicationVersion": {
+			"version": "1.0.0"
+		},
+		"title": "{{appTitle}}",
+		"description": "{{appDescription}}",
+		"dataSources": {
+			"Z_MONIT_PESAGEM_SRV": {
+				"uri": "/sap/opu/odata/sap/Z_MONIT_PESAGEM_SRV/",
+				"type": "OData",
+				"settings": {
+					"odataVersion": "2.0",
+					"localUri": "localService/metadata.xml"
+				}
+			}
+		},
+		"sourceTemplate": {
+			"id": "servicecatalog.connectivityComponent",
+			"version": "1.40.12"
+		}
+	},
+	"sap.ui": {
+		"technology": "UI5",
+		"icons": {
+			"icon": "",
+			"favIcon": "",
+			"phone": "",
+			"phone@2": "",
+			"tablet": "",
+			"tablet@2": ""
+		},
+		"deviceTypes": {
+			"desktop": true,
+			"tablet": true,
+			"phone": true
+		},
+		"supportedThemes": [
+			"sap_hcb",
+			"sap_belize"
+		]
+	},
+	"sap.ui5": {
+		"rootView": {
+			"viewName": "Monitor.PesagemZPP_MONIT_PESAGEM.view.Launcher",
+			"type": "XML"
+		},
+		"dependencies": {
+			"minUI5Version": "1.60.26",
+			"libs": {
+				"sap.f": {
+					"minVersion": "1.52.1"
+				},					
+				"sap.ui.core": {},
+				"sap.m": {},
+				"sap.ndc": {
+					"minVersion": "1.52.12"
+				},				
+				"sap.ui.layout": {},
+				"sap.ushell": {},
+				"sap.collaboration": {},
+				"sap.ui.comp": {},
+				"sap.uxap": {}
+			}
+		},
+		"contentDensities": {
+			"compact": true,
+			"cozy": true
+		},
+		"models": {
+			"i18n": {
+				"type": "sap.ui.model.resource.ResourceModel",
+				"settings": {
+					"bundleName": "Monitor.PesagemZPP_MONIT_PESAGEM.i18n.i18n"
+				}
+			}
+		},
+		"resources": {
+			"css": [{
+				"uri": "css/style.css"
+			}]
+		},
+		"routing": {
+			"config": {
+				"routerClass": "sap.f.routing.Router",
+				"viewType": "XML",
+				"viewPath": "Monitor.PesagemZPP_MONIT_PESAGEM.view",
+				"controlId": "fcl",
+				"transition": "slide"
+			},
+			"routes": [
+				{
+					"pattern": ":layout:",
+					"name": "Launcher",
+					"target": [
+						"Launcher"
+					],
+					"layout": "OneColumn"
+				},
+				{
+					"pattern": "balanca/{werks}/:layout:",
+					"name": "Balanca",
+					"target": [
+						"Launcher",
+						"Balanca"
+					],
+					"layout": "MidColumnFullScreen"
+				},
+				{
+					"pattern": "kit/{werks}/{matnr}/{aufnr}/{idnrk}/:layout:",
+					"name": "Kit",
+					"target": [
+						"Launcher",
+						"Kit"
+					],
+					"layout": "MidColumnFullScreen"
+				}				
+			],
+			"targets": {
+				"Launcher": {
+					"viewName": "Launcher",
+					"controlAggregation": "beginColumnPages"
+				},
+				"Balanca": {
+					"viewName": "Balanca",
+					"controlAggregation": "midColumnPages"
+				},
+				"Kit": {
+					"viewName": "PesagemKIT",
+					"controlAggregation": "midColumnPages"
+				}					
+			}
+		}		
+	},
+	"sap.platform.abap": {
+		"uri": "/sap/bc/ui5_ui5/sap/zpp_monit_pesagem/webapp",
+		"_version": "1.1.0"
+	}	
+}

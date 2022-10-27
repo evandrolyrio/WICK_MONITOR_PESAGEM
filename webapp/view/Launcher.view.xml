@@ -1,0 +1,44 @@
+<mvc:View controllerName="Monitor.PesagemZPP_MONIT_PESAGEM.controller.Launcher" xmlns:html="http://www.w3.org/1999/xhtml"
+	xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:f="sap.f" xmlns:l="sap.ui.layout" height="100%">
+	<f:DynamicPage headerExpanded="true" preserveHeaderStateOnScroll="true" fitContent="true">
+		<f:title>
+			<f:DynamicPageTitle>
+				<f:heading>
+					<Title text="Monitor de Pesagem"/>
+				</f:heading>
+				<f:snappedContent></f:snappedContent>
+			</f:DynamicPageTitle>
+		</f:title>
+		<f:content>
+			<l:Grid defaultSpan="L3 M6 S12" position="Center" class="sapUiSmallMargin">
+				<l:content>
+					<GenericTile header="Pesagem de KIT" press="onDisplayKIT">
+		  				<TileContent footer="Pesagem de KIT">
+							<ImageContent src="sap-icon://sap-box"/>
+						</TileContent>
+					</GenericTile>
+					<GenericTile header="Montagem de KIT" press="goToListarOT">
+						<TileContent footer="Montagem de KIT">
+							<ImageContent src="sap-icon://grid"/>
+						</TileContent>
+					</GenericTile>
+					<GenericTile header="Reimpressão de Etiqueta" press="goToMovimentacaoMassa">
+						<TileContent footer="Reimpressão de Etiqueta">
+							<ImageContent src="sap-icon://print"/>
+						</TileContent>
+					</GenericTile>
+					<GenericTile header="Cadastro de Balança" press="goToMovimentacaoMassa">
+						<TileContent footer="Cadastro de Balança">
+							<ImageContent src="sap-icon://compare-2"/>
+						</TileContent>
+					</GenericTile>
+					<GenericTile header="Cadastro de Carrinho" press="goToMovimentacaoMassa">
+						<TileContent footer="Cadastro de Carrinho">
+							<ImageContent src="sap-icon://cart"/>
+						</TileContent>
+					</GenericTile>					
+				</l:content>
+			</l:Grid>
+		</f:content>
+	</f:DynamicPage>	
+</mvc:View>

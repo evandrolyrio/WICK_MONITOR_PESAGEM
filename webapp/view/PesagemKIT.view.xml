@@ -1,0 +1,97 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="Monitor.PesagemZPP_MONIT_PESAGEM.controller.PesagemKIT"
+	xmlns:html="http://www.w3.org/1999/xhtml" xmlns:semantic="sap.f.semantic" xmlns:form="sap.ui.layout.form" xmlns:l="sap.ui.layout">
+	<semantic:SemanticPage id="mySemanticPage" headerPinnable="true" toggleHeaderOnTitleClick="false" headerExpanded="true" showFooter="false"
+		preserveHeaderStateOnScroll="false">
+		<semantic:headerContent>
+			<form:SimpleForm editable="true" layout="ResponsiveGridLayout" singleContainerFullSize="true" labelSpanXL="4" labelSpanL="3" labelSpanM="12"
+				labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1">
+				<Label text="Balança"/>
+				<Input value="{viewModel>/Id_balanca}"/>
+				<Label text="Impressora"/>
+				<ComboBox change="changeDeposito" selectedKey="{viewModel>/Impressora}"
+					items="{ path: '/ImpressoraSet', parameters : { $count: false, $expand : 'MatnrSet' } }" showSecondaryValues="true">
+					<items>
+						<core:ListItem text="{Descricao}" key="{Cod}" additionalText="{Cod}"/>
+					</items>
+				</ComboBox>
+				<Toolbar>
+					<ToolbarSpacer/>
+					<Button text="Pesar e Imprimir pesagem" icon="sap-icon://search" press="pesarImprimir"/>
+				</Toolbar>
+			</form:SimpleForm>
+		</semantic:headerContent>
+		<semantic:content>
+			<IconTabBar select="handleFilterFromBar" class="sapUiResponsiveContentPadding">
+				<!--<items>-->
+				<!--	<IconTabFilter showAll="true" count="{= ${/ReservaSet}.length }" text="Todas" key="All"/>-->
+				<!--	<IconTabSeparator/>-->
+				<!--	<IconTabFilter icon="sap-icon://drill-down" iconColor="Critical" text="Entrada"-->
+				<!--		key="inbound"/>-->
+				<!--	<IconTabFilter icon="sap-icon://drill-up" iconColor="Critical" text="Saída"-->
+				<!--		key="outbound"/>-->
+				<!--	<IconTabSeparator/>-->
+				<!--	<IconTabFilter icon="sap-icon://complete" iconColor="Positive" text="Concluídas"-->
+				<!--		key="concluida"/>-->
+				<!--</items>-->
+				<content>
+					<Table id="tbPesaKIT" class="custom_table" inset="false" items="{path: '/PesaKITSet', parameters : { count: true, expand : 'Items,ReservaLogProc' } }"
+						busy="{viewModel>/busy}" mode="None">
+						<!--<headerToolbar>-->
+						<!--	<OverflowToolbar>-->
+						<!--		<ToolbarSpacer/>-->
+						<!--		<MenuButton text="Solicitante" buttonMode="Split"  useDefaultActionOnly="false">-->
+						<!--			<menu>-->
+						<!--				<Menu items="{ path:'reportModel>/SolicitanteSet' }" itemSelected="filterSolicitante">-->
+						<!--					<MenuItem text="{reportModel>Text}" icon="sap-icon://search"/>-->
+						<!--				</Menu>-->
+						<!--			</menu>-->
+						<!--		</MenuButton>-->
+						<!--		<ToolbarSeparator/>-->
+						<!--		<MenuButton text="Depósito" buttonMode="Split" useDefaultActionOnly="false">-->
+						<!--			<menu>-->
+						<!--				<Menu items="{ path:'reportModel>/DepositoSet' }" itemSelected="filterDeposito">-->
+						<!--					<MenuItem text="{reportModel>Text}" icon="sap-icon://search"/>-->
+						<!--				</Menu>-->
+						<!--			</menu>-->
+						<!--		</MenuButton>-->
+						<!--	</OverflowToolbar>-->
+						<!--</headerToolbar>-->
+						<columns>
+							<Column minScreenWidth="Desktop" demandPopin="true" popinDisplay="Inline">
+								<Text text="Ord produção"/>
+							</Column>
+							<Column demandPopin="true">
+								<Text text="Material"/>
+							</Column>
+							<Column minScreenWidth="Desktop" demandPopin="true" popinDisplay="Inline">
+								<Text text="Descrição" wrapping="true"/>
+							</Column>
+							<Column minScreenWidth="Desktop" demandPopin="true" popinDisplay="Inline">
+								<Text text="Lote" wrapping="true"/>
+							</Column>
+							<Column demandPopin="true" minScreenWidth="Desktop" popinDisplay="Inline">
+								<Text text="Qtd OP"/>
+							</Column>
+							<Column minScreenWidth="Desktop" demandPopin="true" popinDisplay="WithoutHeader">
+								<Text text="UM"/>
+							</Column>
+						</columns>
+						<items>
+							<ColumnListItem vAlign="Middle" press="displayReserva" type="Navigation" class="borda_destacada">
+								<cells>
+									<ObjectIdentifier title="{RSNUM}" text="{= ${INBOUND} === true ? 'Recebimento' : 'Saída Depósito' }"/>
+									<Text text="{SGTXT}"/>
+									<Text text="{BDTER}"/>
+									<Text text="{SOBKZ}"/>
+									<Text text="{WEMPF}"/>
+									<ObjectStatus text="{ path: 'STATUS', formatter: '.formatter.formatStatus' }"
+										state="{= ${STATUS} === '0' ? 'Error': ${STATUS} === '3' ? 'Success' : 'Warning' }"/>
+								</cells>
+							</ColumnListItem>
+						</items>
+					</Table>
+				</content>
+			</IconTabBar>
+		</semantic:content>
+	</semantic:SemanticPage>
+</mvc:View>

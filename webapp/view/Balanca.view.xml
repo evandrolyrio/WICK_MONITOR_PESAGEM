@@ -1,0 +1,70 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m"
+	controllerName="Monitor.PesagemZPP_MONIT_PESAGEM.controller.Balanca" xmlns:uxap="sap.uxap" xmlns:html="http://www.w3.org/1999/xhtml"
+	xmlns:semantic="sap.f.semantic" xmlns:form="sap.ui.layout.form" xmlns:l="sap.ui.layout" xmlns:f="sap.f">
+	<f:DynamicPage id="mySemanticPage" toggleHeaderOnTitleClick="false" headerExpanded="true" showFooter="true"
+		preserveHeaderStateOnScroll="false">
+		<f:header>
+			<f:DynamicPageHeader pinnable="true">
+				<f:content>
+					<form:SimpleForm editable="true" layout="ResponsiveGridLayout" singleContainerFullSize="true" labelSpanXL="4" labelSpanL="3" labelSpanM="12"
+						labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1">
+						<Toolbar>
+							<Title text="Filtros"/>
+							<ToolbarSpacer/>
+							<Button text="Criar" icon="sap-icon://bar-code" press="criarBalanca"/>
+							<Button text="Deletar" icon="sap-icon://bar-code" press="deletaBalanca"/>
+						</Toolbar>
+						<Toolbar>
+							<ToolbarSpacer/>
+							<Button text="Pesquisar" icon="sap-icon://search" press="pesquisa"/>
+						</Toolbar>
+					</form:SimpleForm>
+				</f:content>
+			</f:DynamicPageHeader>
+		</f:header>
+		<!-- Content -->
+		<f:content>
+			<Table id="idProductsTable" inset="false" sticky="ColumnHeaders"
+				items="{path: 'balanca>/BalancaSet'}"
+				busy="{viewModel>/busy}" mode="None" noDataText="{viewModel>/NoDataText}">
+				<columns>
+					<Column demandPopin="true">
+						<Text text="Centro" wrapping="false"/>
+					</Column>
+					<Column width="20rem" minScreenWidth="Desktop" demandPopin="true" popinDisplay="Inline">
+						<Text text="Id da balança"/>
+					</Column>
+					<Column minScreenWidth="Desktop" width="5rem" demandPopin="true" popinDisplay="Inline">
+						<Text text="Descrição da balança"/>
+					</Column>
+					<Column minScreenWidth="Desktop" width="5rem" demandPopin="true" popinDisplay="Inline">
+						<Text text="Balança em Uso"/>
+					</Column>
+				</columns>
+				<items>
+					<ColumnListItem vAlign="Middle" press="" type="Inactive">
+						<cells>
+							<ObjectIdentifier title="{balanca>Werks}" />
+							<ObjectIdentifier title="{Balanca>Id_balanca}"/>
+							<ObjectIdentifier title="{balanca>Id_bal_desc}"/>
+							<ObjectIdentifier text="{balanca>Id_bal_uso}"/>
+						</cells>
+					</ColumnListItem>
+				</items>
+			</Table>
+		</f:content>
+		<f:footer>
+			<OverflowToolbar >
+				<MessageStrip text="{viewModel>/scannedPositionText}" type="{viewModel>/scannedPositionState}"/>
+				<ToolbarSpacer/>
+				<!--<Button text="{viewModel>/btnDefinirOrigemTxt}" icon="sap-icon://bar-code" press="changeOrigem"-->
+				<!--				type="{= ${viewModel>/origemSelected} ? 'Emphasized' : 'Default'}"/>-->
+				<Button text="{viewModel>/btnDefinirDestinoTxt}" icon="sap-icon://bar-code" press="changeDestino"
+								type="{= ${viewModel>/origemSelected} ? 'Emphasized' : 'Default'}"/>
+				<ToolbarSeparator/>
+				<Button width="auto" enabled="{= ${ordemTransporte>/OrdemTransporteSet}.length > 0 }" icon="sap-icon://accounting-document-verification"
+					text="Confirmar Item" press="confirmOT" type="Accept"/>
+			</OverflowToolbar>
+		</f:footer>
+	</f:DynamicPage>
+</mvc:View>
