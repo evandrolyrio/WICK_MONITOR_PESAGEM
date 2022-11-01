@@ -16,46 +16,17 @@
 				</ComboBox>
 				<Toolbar>
 					<ToolbarSpacer/>
-					<Button text="Pesar e Imprimir pesagem" icon="sap-icon://search" press="pesarImprimir"/>
+					<Button text="Pesar e Imprimir pesagem" icon="sap-icon://compare-2" press="pesarImprimir"/>
+					<Button text="Dividir Pesagem" icon="sap-icon://duplicate" press="pesarImprimir"/>
 				</Toolbar>
 			</form:SimpleForm>
 		</semantic:headerContent>
 		<semantic:content>
 			<IconTabBar select="handleFilterFromBar" class="sapUiResponsiveContentPadding">
-				<!--<items>-->
-				<!--	<IconTabFilter showAll="true" count="{= ${/ReservaSet}.length }" text="Todas" key="All"/>-->
-				<!--	<IconTabSeparator/>-->
-				<!--	<IconTabFilter icon="sap-icon://drill-down" iconColor="Critical" text="Entrada"-->
-				<!--		key="inbound"/>-->
-				<!--	<IconTabFilter icon="sap-icon://drill-up" iconColor="Critical" text="Saída"-->
-				<!--		key="outbound"/>-->
-				<!--	<IconTabSeparator/>-->
-				<!--	<IconTabFilter icon="sap-icon://complete" iconColor="Positive" text="Concluídas"-->
-				<!--		key="concluida"/>-->
-				<!--</items>-->
 				<content>
-					<Table id="tbPesaKIT" class="custom_table" inset="false" items="{path: '/PesaKITSet', parameters : { count: true, expand : 'Items,ReservaLogProc' } }"
-						busy="{viewModel>/busy}" mode="None">
-						<!--<headerToolbar>-->
-						<!--	<OverflowToolbar>-->
-						<!--		<ToolbarSpacer/>-->
-						<!--		<MenuButton text="Solicitante" buttonMode="Split"  useDefaultActionOnly="false">-->
-						<!--			<menu>-->
-						<!--				<Menu items="{ path:'reportModel>/SolicitanteSet' }" itemSelected="filterSolicitante">-->
-						<!--					<MenuItem text="{reportModel>Text}" icon="sap-icon://search"/>-->
-						<!--				</Menu>-->
-						<!--			</menu>-->
-						<!--		</MenuButton>-->
-						<!--		<ToolbarSeparator/>-->
-						<!--		<MenuButton text="Depósito" buttonMode="Split" useDefaultActionOnly="false">-->
-						<!--			<menu>-->
-						<!--				<Menu items="{ path:'reportModel>/DepositoSet' }" itemSelected="filterDeposito">-->
-						<!--					<MenuItem text="{reportModel>Text}" icon="sap-icon://search"/>-->
-						<!--				</Menu>-->
-						<!--			</menu>-->
-						<!--		</MenuButton>-->
-						<!--	</OverflowToolbar>-->
-						<!--</headerToolbar>-->
+					<Table id="tbPesaKIT" class="custom_table" inset="false" items="{path: 'viewModel>/PesaKITSet', parameters : { count: true } }"
+						busy="{viewModel>/busy}" mode="MultiSelect"> 
+						<!--busy="{viewModel>/busy}" mode="None">-->
 						<columns>
 							<Column minScreenWidth="Desktop" demandPopin="true" popinDisplay="Inline">
 								<Text text="Ord produção"/>
@@ -64,28 +35,58 @@
 								<Text text="Material"/>
 							</Column>
 							<Column minScreenWidth="Desktop" demandPopin="true" popinDisplay="Inline">
-								<Text text="Descrição" wrapping="true"/>
-							</Column>
-							<Column minScreenWidth="Desktop" demandPopin="true" popinDisplay="Inline">
-								<Text text="Lote" wrapping="true"/>
+								<Text text="Lote OP" wrapping="true"/>
 							</Column>
 							<Column demandPopin="true" minScreenWidth="Desktop" popinDisplay="Inline">
 								<Text text="Qtd OP"/>
 							</Column>
-							<Column minScreenWidth="Desktop" demandPopin="true" popinDisplay="WithoutHeader">
-								<Text text="UM"/>
+							<Column demandPopin="true" minScreenWidth="Desktop" popinDisplay="Inline">
+								<Text text="Reserva"/>
 							</Column>
+							<Column demandPopin="true" minScreenWidth="Desktop" popinDisplay="Inline">
+								<Text text="Qtd básica"/>
+							</Column>
+							<Column demandPopin="true" minScreenWidth="Desktop" popinDisplay="Inline">
+								<Text text="Qtd KIT"/>
+							</Column>	
+							<Column demandPopin="true" minScreenWidth="Desktop" popinDisplay="Inline">
+								<Text text="Centro"/>
+							</Column>
+							<Column demandPopin="true" minScreenWidth="Desktop" popinDisplay="Inline">
+								<Text text="Componente"/>
+							</Column>
+							<Column demandPopin="true" minScreenWidth="Desktop" popinDisplay="Inline">
+								<Text text="Depósito"/>
+							</Column>	
+							<Column demandPopin="true" minScreenWidth="Desktop" popinDisplay="Inline">
+								<Text text="Qtd Necess"/>
+							</Column>	
+							<Column demandPopin="true" minScreenWidth="Desktop" popinDisplay="Inline">
+								<Text text="Qtd Pesada"/>
+							</Column>	
+							<Column demandPopin="true" minScreenWidth="Desktop" popinDisplay="Inline">
+								<Text text="Lote"/>
+							</Column>								
+
 						</columns>
 						<items>
 							<ColumnListItem vAlign="Middle" press="displayReserva" type="Navigation" class="borda_destacada">
 								<cells>
-									<ObjectIdentifier title="{RSNUM}" text="{= ${INBOUND} === true ? 'Recebimento' : 'Saída Depósito' }"/>
-									<Text text="{SGTXT}"/>
-									<Text text="{BDTER}"/>
-									<Text text="{SOBKZ}"/>
-									<Text text="{WEMPF}"/>
-									<ObjectStatus text="{ path: 'STATUS', formatter: '.formatter.formatStatus' }"
-										state="{= ${STATUS} === '0' ? 'Error': ${STATUS} === '3' ? 'Success' : 'Warning' }"/>
+									<ObjectIdentifier title="{viewModel>Aufnr}"/>
+									<ObjectIdentifier title="{viewModel>Matnr}" text="{viewModel>Maktx}"/>
+									<Text text="{viewModel>Charg_op}"/>
+									<ObjectIdentifier title="{viewModel>Gamng}" text="{viewModel>Gmein}"/>
+									<Text text="{viewModel>Rsnum}"/>
+									<Text text="{viewModel>Sbmng}"/>
+									<Text text="{viewModel>Qtd_kit}"/>
+									<Text text="{viewModel>Werks}"/>
+									<ObjectIdentifier title="{viewModel>Componente}" text="{viewModel>Maktx_c}"/>
+									<Text text="{viewModel>Lgort}"/>
+									<ObjectIdentifier title="{viewModel>Bdmng}" text="{viewModel>Meins}"/>
+									<Text text="{viewModel>Qtd_pesada}"/>
+									<Text text="{viewModel>Charg}"/>
+									
+
 								</cells>
 							</ColumnListItem>
 						</items>

@@ -14,14 +14,17 @@
 					suggestionItemSelected="suggestionItemSelected"></Input>	
 				<Label text="Componente"/>					
 				<Input value="{/Idnrk}" showSuggestion="true" showTableSuggestionValueHelp="false"
-					suggestionItemSelected="suggestionItemSelected"></Input>					
+					suggestionItemSelected="suggestionItemSelected"></Input>		
+				<Label text="Data da necessidade"/>		
+				<DatePicker value="{/Gstrp}" valueFormat="dd.MM.yyyy" displayFormat="short" editable="true"/>
+					
 			</l:VerticalLayout>
 		</f:SimpleForm>
 		<beginButton>
-			<Button type="Accept" text="Ok" press="goToKIT" enabled="true"/>
+			<Button type="Accept" text="Ok" press="goToKIT" enabled="{= ${/Gstrp} ? ${/Werks} ? true : false : false }"/>
 		</beginButton>
 		<endButton>
-			<Button type="Transparent" text="Cancelar" press="onCancelChangeVsolm"/>
+			<Button type="Transparent" text="Cancelar" press="onCloseDialog"/>
 		</endButton>
 	</Dialog>
 </core:FragmentDefinition>

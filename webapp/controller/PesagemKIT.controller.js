@@ -11,32 +11,87 @@ sap.ui.define([
 		onInit: function() {
 
 			this.setModel(this.getOwnerComponent().getModel());
-
+			
+			this.setModel(new JSONModel({
+				busy: false,
+				//FilterData
+				PesaKITSet: [],
+				Id_balanca: "",
+				Impressora: ""
+			}), "viewModel");			
+			var that = this;
 			this.getRouter().getRoute("Kit").attachPatternMatched(function (oEvent) {
+				var oModel = that.getModel();
 				var _params = oEvent.getParameters();
 				this._werks = _params.arguments.werks;
-				this.getModel("viewModel").setProperty("/Werks", this._werks);
-				this.getUserDefaultParameters().then(function() {
-					this.getModel("viewModel").setProperty("/busy", false);
-				});
+				this._matnr = _params.arguments.matnr;
+				this._aufnr = _params.arguments.aufnr;
+				this._idnrk = _params.arguments.idnrk;
+				this._gstrp = _params.arguments.gstrp;
+				// this.getModel("viewModel").setProperty("/Werks", this._werks);
+				// this.getUserDefaultParameters().then(function() {
+				// 	this.getModel("viewModel").setProperty("/busy", false);
+				// });
+				
+			that.getModel("viewModel").setProperty("/busy", true);
+			oModel.invalidate();
+			oModel.callFunction("/GetPesagemKIT", {
+				method: "GET",
+				urlParameters: {
+					Werks: this._werks,
+					Matnr: this._matnr,
+					Aufnr: this._aufnr,
+					Idnrk: this._idnrk,
+					Gstrp: this._gstrp
+				},
+				"$expand": "Items",
+				success: function(oData)  {
+					that.getModel("viewModel").setProperty("/PesaKITSet", oData.results);
+					that.getModel("viewModel").setProperty("/busy", false);
+					that.getView().byId("tbPesaKIT").getBinding("items").refresh();
+				},
+				error: function(error) {
+					// alert(this.oResourceBundle.getText("ErrorReadingProfile"));
+					// oGeneralModel.setProperty("/sideListBusy", false);
+					that.getModel("viewModel").setProperty("/busy", false);
+				}
+			});				
 
-				this.getModel().read("/PesagemKITSet", {
-					filters: [
-						new sap.ui.model.Filter("Werks", sap.ui.model.FilterOperator.EQ, this._werks)
-					],
-					success: function(oData) {
-						this.getModel("viewModel").setProperty("/BalancaSet", oData.results);
-					},
-					error: function(err) {
-						this.toastMessage("Erro ao buscar Balança.");
-						console.log("Erro ao buscar Balança", err);
-					}
-				});			
+				// this.getModel().read("/PesagemKITSet", {
+				// 	filters: [
+				// 		new sap.ui.model.Filter("Werks", sap.ui.model.FilterOperator.EQ, this._werks)
+				// 	],
+				// 	success: function(oData) {
+				// 		this.getModel("viewModel").setProperty("/BalancaSet", oData.results);
+				// 	},
+				// 	error: function(err) {
+				// 		this.toastMessage("Erro ao buscar Balança.");
+				// 		console.log("Erro ao buscar Balança", err);
+				// 	}
+				// });			
 
 			});
 			// this.getRouter().getRoute("PesagemKIT").attachPatternMatched(this._onObjectMatched, this);
 			
 		},
+		pesarImprimir: function(oEvent) {
+			var oTable = this.getView().byId("tbPesaKIT");
+			var oSelected = oTable.getSelectedItems()[0].oBindingContexts.viewModel.getObject();
+			
+			var oData = this.getModel("viewModel").getData();
+			
+			if (!oData.Id_balanca) {
+				if (!oSelected.Qtd_pesada) {
+					MessageBox.error("Campo Qtd.Pesada está vazio e é obrigatório em pesagem manual.");
+				} else {
+				    MessageBox.information("Pesagem manual, o peso considerado será o informado.");
+				    
+				    
+		    	}
+			}
+			// this.getView().byId("tbPesaKIT").getBinding("items")
+
+		}		
 
 	});
 

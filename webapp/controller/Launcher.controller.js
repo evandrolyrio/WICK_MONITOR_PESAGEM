@@ -43,11 +43,21 @@ sap.ui.define([
 			this.oDialog.close();
 			this.oDialog.destroy(true);
 			
+			if ( !oDialogData.Matnr ) {
+				oDialogData.Matnr = "0";
+			}
+			if ( !oDialogData.Aufnr ) {
+				oDialogData.Aufnr = "0";
+			}
+			if ( !oDialogData.Idnrk ) {
+				oDialogData.Idnrk = "0";
+			}
 			this.getRouter().navTo("Kit", {
 				werks: oDialogData.Werks,
 				matnr: oDialogData.Matnr,
 				aufnr: oDialogData.Aufnr,
 				idnrk: oDialogData.Idnrk,
+				gstrp: oDialogData.Gstrp,
 				layout: this.getNextUiState(1).layout
 			});
 		},		
@@ -69,5 +79,9 @@ sap.ui.define([
 				this.oDialog.open();
 			}
 		},
+		onCloseDialog: function() {
+			this.oDialog.close();
+			this.oDialog.destroy(true);
+		}
 	});
 });
