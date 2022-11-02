@@ -64,7 +64,9 @@ sap.ui.define([
 		onDisplayKIT: function(oEvent) {
 			this._currentContext = oEvent.getSource().getBindingContext();
 			this.oDialog = new sap.ui.xmlfragment("Monitor.PesagemZPP_MONIT_PESAGEM.view.fragment.DisplayKITDialog", this);
-			
+			var oDateFormat = sap.ui.core.format.DateFormat.getDateInstance({
+    							pattern: "ddMMYY"
+				});
 			if (this.oDialog) {
 				this.getView().addDependent(this.oDialog);
 
@@ -72,7 +74,8 @@ sap.ui.define([
 				this.oDialog.setModel(new JSONModel({
 					Werks: "",
 					Matnr: "",
-					Aufnr: ""
+					Aufnr: "",
+					Gstrp: oDateFormat.format(new Date())
 				}, "dialog"));
 
 				this.oDialog.setBindingContext(this._currentContext);

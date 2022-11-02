@@ -17,9 +17,18 @@ sap.ui.define([
 				//FilterData
 				PesaKITSet: [],
 				Id_balanca: "",
-				Impressora: ""
-			}), "viewModel");			
-			var that = this;
+				Impressora: "",
+				Peso: ""
+			}), "viewModel");
+			var that = this;			
+			this.getModel().metadataLoaded().then(function() {
+				that.getModel().read("/ImpressoraSet", {
+					success: function(oData) {
+						that.getModel("viewModel").setProperty("/ImpressoraSet", oData.results);
+					}
+				});
+			});
+			
 			this.getRouter().getRoute("Kit").attachPatternMatched(function (oEvent) {
 				var oModel = that.getModel();
 				var _params = oEvent.getParameters();
@@ -74,22 +83,63 @@ sap.ui.define([
 			// this.getRouter().getRoute("PesagemKIT").attachPatternMatched(this._onObjectMatched, this);
 			
 		},
+		onChangeImpressora: function(oEvent) {
+			var oViewModel = this.getModel("viewModel");
+			var sData = oEvent.getParameter("selectedItem").getBindingContext().getObject().Id_impressora;
+			oViewModel.setProperty("/Impressora", sData);
+				
+		},
 		pesarImprimir: function(oEvent) {
 			var oTable = this.getView().byId("tbPesaKIT");
 			var oSelected = oTable.getSelectedItems()[0].oBindingContexts.viewModel.getObject();
+			var oModel = this.getModel();
 			
 			var oData = this.getModel("viewModel").getData();
-			
+			var that = this;
 			if (!oData.Id_balanca) {
 				if (!oSelected.Qtd_pesada) {
 					MessageBox.error("Campo Qtd.Pesada está vazio e é obrigatório em pesagem manual.");
 				} else {
-				    MessageBox.information("Pesagem manual, o peso considerado será o informado.");
-				    
-				    
+				    // MessageBox.information("Pesagem manual, o peso considerado será o informado.");
+					this.confirmAction("Pesagem manual, o peso considerado será o informado:"+ oSelected.Qtd_pesada, "Confirm", function (answer) {
+		
+						if (answer !== sap.m.MessageBox.Action.YES) {
+							return;
+						}
+						
+
+						that.getModel("viewModel").setProperty("/busy", true);
+						oModel.invalidate();
+						oModel.callFunction("/ImprimeEtiqueta", {
+							method: "GET",
+							urlParameters: {
+								Aufnr:      oSelected.Aufnr,
+								Charg:      oSelected.Charg,
+								Charg_op:   oSelected.Charg_op,
+								Data_valid: oSelected.Expirydate,
+								Maktx:      oSelected.Maktx,
+								Maktx_op:   oSelected.Maktx_c,
+								Matnr:      oSelected.Matnr,
+								Meins:      oSelected.Meins,
+								Plnbez:     oSelected.Componente,
+								Qtd_pesada: oSelected.Qtd_pesada,
+								Werks:      oSelected.Werks,
+								Impressora: oData.Impressora
+							},
+							success: function(oData) {
+								that.getModel("viewModel").setProperty("/busy", false);
+								MessageBox.information("Impressão realizada com sucesso");
+							},
+							error: function(error) {
+								// alert(this.oResourceBundle.getText("ErrorReadingProfile"));
+								// oGeneralModel.setProperty("/sideListBusy", false);
+								that.getModel("viewModel").setProperty("/busy", false);
+								MessageBox.information("Erro na impressão");
+							}
+						});	
+					});
 		    	}
 			}
-			// this.getView().byId("tbPesaKIT").getBinding("items")
 
 		}		
 

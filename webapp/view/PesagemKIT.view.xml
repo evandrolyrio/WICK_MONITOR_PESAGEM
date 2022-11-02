@@ -8,16 +8,17 @@
 				<Label text="Balança"/>
 				<Input value="{viewModel>/Id_balanca}"/>
 				<Label text="Impressora"/>
-				<ComboBox change="changeDeposito" selectedKey="{viewModel>/Impressora}"
-					items="{ path: '/ImpressoraSet', parameters : { $count: false, $expand : 'MatnrSet' } }" showSecondaryValues="true">
+				<ComboBox change="changeImpressora" selectedKey="{viewModel>/Id_impressora}"
+					items="{ path: '/ImpressoraSet'}" selectionChange="onChangeImpressora">
+					<!--showSecondaryValues="true">-->
 					<items>
-						<core:ListItem text="{Descricao}" key="{Cod}" additionalText="{Cod}"/>
+						<core:ListItem text="{Id_impressora}" key="{Cod}" additionalText="{Cod}"/>
 					</items>
 				</ComboBox>
 				<Toolbar>
 					<ToolbarSpacer/>
 					<Button text="Pesar e Imprimir pesagem" icon="sap-icon://compare-2" press="pesarImprimir"/>
-					<Button text="Dividir Pesagem" icon="sap-icon://duplicate" press="pesarImprimir"/>
+					<Button text="Dividir Pesagem" icon="sap-icon://duplicate" press="dividirPesagem"/>
 				</Toolbar>
 			</form:SimpleForm>
 		</semantic:headerContent>
@@ -83,9 +84,9 @@
 									<ObjectIdentifier title="{viewModel>Componente}" text="{viewModel>Maktx_c}"/>
 									<Text text="{viewModel>Lgort}"/>
 									<ObjectIdentifier title="{viewModel>Bdmng}" text="{viewModel>Meins}"/>
-									<Text text="{viewModel>Qtd_pesada}"/>
+									<!--<Text text="{viewModel>Qtd_pesada}"/>-->
+									<Input value="{viewModel>Qtd_pesada}" type="{Text}" fieldWidth="{60%}"/>
 									<Text text="{viewModel>Charg}"/>
-									
 
 								</cells>
 							</ColumnListItem>
