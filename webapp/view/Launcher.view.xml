@@ -22,7 +22,7 @@
 							<ImageContent src="sap-icon://grid"/>
 						</TileContent>
 					</GenericTile>
-					<GenericTile header="Reimpressão de Etiqueta" press="goToMovimentacaoMassa">
+					<GenericTile header="Reimpressão de Etiqueta" press="onDisplayReimp">
 						<TileContent footer="Reimpressão de Etiqueta">
 							<ImageContent src="sap-icon://print"/>
 						</TileContent>

@@ -128,6 +128,15 @@
 						"Kit"
 					],
 					"layout": "MidColumnFullScreen"
+				},
+				{
+					"pattern": "Reimpressao/{aufnr}/:layout:",
+					"name": "Reimpressao",
+					"target": [
+						"Launcher",
+						"Reimpressao"
+					],
+					"layout": "MidColumnFullScreen"
 				}				
 			],
 			"targets": {
@@ -142,7 +151,11 @@
 				"Kit": {
 					"viewName": "PesagemKIT",
 					"controlAggregation": "midColumnPages"
-				}					
+				},
+				"Reimpressao": {
+					"viewName": "Reimpressao",
+					"controlAggregation": "midColumnPages"
+				}				
 			}
 		}		
 	},

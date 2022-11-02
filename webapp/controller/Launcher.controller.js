@@ -60,6 +60,19 @@ sap.ui.define([
 				gstrp: oDialogData.Gstrp,
 				layout: this.getNextUiState(1).layout
 			});
+		},	
+		goToReimp: function() {
+			var oDialogData = this.oDialog.getModel().getData();
+			this.oDialog.close();
+			this.oDialog.destroy(true);
+			
+			if ( !oDialogData.Aufnr ) {
+				oDialogData.Aufnr = "0";
+			}
+			this.getRouter().navTo("Reimpressao", {
+				aufnr: oDialogData.Aufnr,
+				layout: this.getNextUiState(1).layout
+			});
 		},		
 		onDisplayKIT: function(oEvent) {
 			this._currentContext = oEvent.getSource().getBindingContext();
@@ -82,6 +95,21 @@ sap.ui.define([
 				this.oDialog.open();
 			}
 		},
+		onDisplayReimp: function(oEvent) {
+			this._currentContext = oEvent.getSource().getBindingContext();
+			this.oDialog = new sap.ui.xmlfragment("Monitor.PesagemZPP_MONIT_PESAGEM.view.fragment.DisplayReimpDialog", this);
+			if (this.oDialog) {
+				this.getView().addDependent(this.oDialog);
+
+				this.oDialog.setModel(this.getModel());
+				this.oDialog.setModel(new JSONModel({
+					Aufnr: ""
+				}, "dialog"));
+
+				this.oDialog.setBindingContext(this._currentContext);
+				this.oDialog.open();
+			}
+		},		
 		onCloseDialog: function() {
 			this.oDialog.close();
 			this.oDialog.destroy(true);

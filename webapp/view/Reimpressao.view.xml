@@ -1,0 +1,96 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="Monitor.PesagemZPP_MONIT_PESAGEM.controller.Reimpressao"
+	xmlns:html="http://www.w3.org/1999/xhtml" xmlns:semantic="sap.f.semantic" xmlns:form="sap.ui.layout.form" xmlns:l="sap.ui.layout">
+	<semantic:SemanticPage id="mySemanticPage" headerPinnable="true" toggleHeaderOnTitleClick="false" headerExpanded="true" showFooter="false"
+		preserveHeaderStateOnScroll="false">
+		<semantic:headerContent>
+			<form:SimpleForm editable="true" layout="ResponsiveGridLayout" singleContainerFullSize="true" labelSpanXL="4" labelSpanL="3" labelSpanM="12"
+				labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1">
+				<Toolbar>
+					<ToolbarSpacer/>
+					<Button text="Imprimir Etiqueta" icon="sap-icon://print" press="Imprimir"/>
+					<!--<Button text="Dividir Pesagem" icon="sap-icon://duplicate" press="dividirPesagem"/>-->
+				</Toolbar>
+			</form:SimpleForm>
+		</semantic:headerContent>
+		<semantic:content>
+			<IconTabBar select="handleFilterFromBar" class="sapUiResponsiveContentPadding">
+				<content>
+					<Table id="tbReimpressao" class="custom_table" inset="false" items="{path: 'viewModel>/ReimpressaoSet', parameters : { count: true } }"
+						busy="{viewModel>/busy}" mode="MultiSelect"> 
+						<!--busy="{viewModel>/busy}" mode="None">-->
+						<columns>
+							<Column minScreenWidth="Desktop" demandPopin="true" popinDisplay="Inline">
+								<Text text="Nº Etiqueta"/>
+							</Column>
+							<Column demandPopin="true">
+								<Text text="Centro"/>
+							</Column>
+							<Column minScreenWidth="Desktop" demandPopin="true" popinDisplay="Inline">
+								<Text text="Componente" wrapping="true"/>
+							</Column>
+							<Column demandPopin="true" minScreenWidth="Desktop" popinDisplay="Inline">
+								<Text text="Lote pesado"/>
+							</Column>
+							<Column demandPopin="true" minScreenWidth="Desktop" popinDisplay="Inline">
+								<Text text="Qtd pesada"/>
+							</Column>
+							<Column demandPopin="true" minScreenWidth="Desktop" popinDisplay="Inline">
+								<Text text="Dt pesagem"/>
+							</Column>
+							<Column demandPopin="true" minScreenWidth="Desktop" popinDisplay="Inline">
+								<Text text="Ord.produção"/>
+							</Column>	
+							<Column demandPopin="true" minScreenWidth="Desktop" popinDisplay="Inline">
+								<Text text="Material OP"/>
+							</Column>
+							<Column demandPopin="true" minScreenWidth="Desktop" popinDisplay="Inline">
+								<Text text="Lote Kit"/>
+							</Column>
+							<Column demandPopin="true" minScreenWidth="Desktop" popinDisplay="Inline">
+								<Text text="Data Impressao"/>
+							</Column>	
+							<Column demandPopin="true" minScreenWidth="Desktop" popinDisplay="Inline">
+								<Text text="Hora"/>
+							</Column>	
+							<Column demandPopin="true" minScreenWidth="Desktop" popinDisplay="Inline">
+								<Text text="Usuário"/>
+							</Column>	
+							<Column demandPopin="true" minScreenWidth="Desktop" popinDisplay="Inline">
+								<Text text="Balança"/>
+							</Column>
+							<Column demandPopin="true" minScreenWidth="Desktop" popinDisplay="Inline">
+								<Text text="ID no Carrinho"/>
+							</Column>							
+							<Column demandPopin="true" minScreenWidth="Desktop" popinDisplay="Inline">
+								<Text text="Carrinho"/>
+							</Column>
+						</columns>
+						<items>
+							<ColumnListItem vAlign="Middle" press="displayReserva" type="Navigation" class="borda_destacada">
+								<cells>
+									<ObjectIdentifier title="{viewModel>Zetiqid}"/>
+									<ObjectIdentifier title="{viewModel>Werks}"/>
+									<ObjectIdentifier title="{viewModel>Idnrk}" text="{viewModel>Maktx_c}"/>
+									<Text text="{viewModel>Charg}"/>
+									<ObjectIdentifier title="{viewModel>Qtd_pes}" text="{viewModel>Un_med_pes}"/>
+									<!--<Text text="{viewModel>Dt_pesagem}"/>-->
+									<Text text="{path: 'viewModel>Dt_pesagem', formatOptions:{ pattern: 'dd/MM/yyyy', UTC: true } }"/>
+									<Text text="{viewModel>Aufnr}"/>
+									<ObjectIdentifier title="{viewModel>Matnr_prd}" text="{viewModel>Maktx_p}"/>
+									<Text text="{viewModel>Charg_kit}"/>
+									<Text text="{path: 'viewModel>Zdata', formatOptions:{ pattern: 'dd/MM/yyyy', UTC: true }}"/>
+									<!--<Text text="{viewModel>Zdata}"/>-->
+									<Text text="{viewModel>Zhora}"/>
+									<Text text="{viewModel>Zuser}"/>
+									<Text text="{viewModel>Id_balanca}"/>
+									<Text text="{viewModel>Zmtcar}"/>
+									<Text text="{viewModel>Id_car_mont}"/>
+								</cells>
+							</ColumnListItem>
+						</items>
+					</Table>
+				</content>
+			</IconTabBar>
+		</semantic:content>
+	</semantic:SemanticPage>
+</mvc:View>
