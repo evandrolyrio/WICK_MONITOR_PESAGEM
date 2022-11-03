@@ -74,10 +74,7 @@ sap.ui.define([
 						MessageBox.information("Erro na impressão");
 					}
 				});
-
 			}
 		}
-
 	});
-
 });
