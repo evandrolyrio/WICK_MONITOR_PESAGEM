@@ -17,7 +17,7 @@
 							<ImageContent src="sap-icon://sap-box"/>
 						</TileContent>
 					</GenericTile>
-					<GenericTile header="Montagem de KIT" press="goToListarOT">
+					<GenericTile header="Montagem de KIT" press="onMontaKIT">
 						<TileContent footer="Montagem de KIT">
 							<ImageContent src="sap-icon://grid"/>
 						</TileContent>

@@ -39,6 +39,11 @@
     "sourceFolder": "webapp",
     "targetFolder": "dist",
     "excludedFolders": [],
-    "excludedFiles": []
+    "excludedFiles": [],
+    "lastBuildDateTime": "Fri, 04 Nov 2022 12:12:38 GMT"
+  },
+  "deploy": {
+    "destination": "SFD",
+    "name": "Z_MONIT_PESAGEM"
   }
 }

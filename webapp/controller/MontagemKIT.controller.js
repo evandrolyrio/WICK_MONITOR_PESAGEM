@@ -2,11 +2,11 @@ sap.ui.define([
 	"Monitor/PesagemZPP_MONIT_PESAGEM/controller/BaseController",
 	"sap/ui/model/json/JSONModel",
 	"sap/ndc/BarcodeScanner",
-	"sap/m/MessageBox",
+	"sap/m/MessageBox"
 ], function(BaseController, JSONModel, BarcodeScanner, MessageBox) {
 	"use strict";
 
-	return BaseController.extend("Monitor.PesagemZPP_MONIT_PESAGEM.controller.PesagemKIT", {
+	return BaseController.extend("Monitor.PesagemZPP_MONIT_PESAGEM.controller.MontagemKIT", {
 
 		onInit: function() {
 
@@ -15,70 +15,22 @@ sap.ui.define([
 			this.setModel(new JSONModel({
 				busy: false,
 				//FilterData
-				PesaKITSet: [],
-				Id_balanca: "",
-				Impressora: "",
-				Peso: "",
+				MontaKITSet: [],
+				Id_carrinho: "",
+				Aufnr: "",
+				Werks: "",
 				Editable: ""
 			}), "viewModel");
 			var that = this;
-			this.getModel().metadataLoaded().then(function() {
-				that.getModel().read("/ImpressoraSet", {
-					success: function(oData) {
-						that.getModel("viewModel").setProperty("/ImpressoraSet", oData.results);
-					}
-				});
-			});
 
-			this.getRouter().getRoute("Kit").attachPatternMatched(function(oEvent) {
+			this.getRouter().getRoute("Montagem").attachPatternMatched(function(oEvent) {
 				var oModel = that.getModel();
 				var _params = oEvent.getParameters();
-				this._werks = _params.arguments.werks;
-				this._matnr = _params.arguments.matnr;
 				this._aufnr = _params.arguments.aufnr;
-				this._idnrk = _params.arguments.idnrk;
-				this._gstrp = _params.arguments.gstrp;
-				// this.getModel("viewModel").setProperty("/Werks", this._werks);
-				// this.getUserDefaultParameters().then(function() {
-				// 	this.getModel("viewModel").setProperty("/busy", false);
-				// });
-
+				this._id_carrinho = _params.arguments.id_carrinho;
 				that.getModel("viewModel").setProperty("/busy", true);
-				oModel.invalidate();
-				oModel.callFunction("/GetPesagemKIT", {
-					method: "GET",
-					urlParameters: {
-						Werks: this._werks,
-						Matnr: this._matnr,
-						Aufnr: this._aufnr,
-						Idnrk: this._idnrk,
-						Gstrp: this._gstrp
-					},
-					"$expand": "Items",
-					success: function(oData) {
-						that.getModel("viewModel").setProperty("/PesaKITSet", oData.results);
-						that.getModel("viewModel").setProperty("/busy", false);
-						that.getView().byId("tbPesaKIT").getBinding("items").refresh();
-					},
-					error: function(error) {
-						// alert(this.oResourceBundle.getText("ErrorReadingProfile"));
-						// oGeneralModel.setProperty("/sideListBusy", false);
-						that.getModel("viewModel").setProperty("/busy", false);
-					}
-				});
-
-				// this.getModel().read("/PesagemKITSet", {
-				// 	filters: [
-				// 		new sap.ui.model.Filter("Werks", sap.ui.model.FilterOperator.EQ, this._werks)
-				// 	],
-				// 	success: function(oData) {
-				// 		this.getModel("viewModel").setProperty("/BalancaSet", oData.results);
-				// 	},
-				// 	error: function(err) {
-				// 		this.toastMessage("Erro ao buscar Balança.");
-				// 		console.log("Erro ao buscar Balança", err);
-				// 	}
-				// });			
+				that.getModel("viewModel").setProperty("/Id_carrinho", this._id_carrinho);
+				that.getModel("viewModel").setProperty("/Aufnr", this._aufnr);
 
 			});
 			// this.getRouter().getRoute("PesagemKIT").attachPatternMatched(this._onObjectMatched, this);
