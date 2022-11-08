@@ -31,6 +31,27 @@ sap.ui.define([
 				that.getModel("viewModel").setProperty("/busy", true);
 				that.getModel("viewModel").setProperty("/Id_carrinho", this._id_carrinho);
 				that.getModel("viewModel").setProperty("/Aufnr", this._aufnr);
+				
+				oModel.invalidate();
+				oModel.callFunction("/GetMontagemKIT", {
+					method: "GET",
+					urlParameters: {
+						Aufnr: this._aufnr,
+						Id_carrinho: this._id_carrinho,
+						Deleta: ""
+					},
+					"$expand": "Items",
+					success: function(oData) {
+						that.getModel("viewModel").setProperty("/MontaKITSet", oData.results);
+						that.getModel("viewModel").setProperty("/busy", false);
+						that.getView().byId("tbMontaKIT").getBinding("items").refresh();
+					},
+					error: function(error) {
+						// alert(this.oResourceBundle.getText("ErrorReadingProfile"));
+						// oGeneralModel.setProperty("/sideListBusy", false);
+						that.getModel("viewModel").setProperty("/busy", false);
+					}
+				});				
 
 			});
 			// this.getRouter().getRoute("PesagemKIT").attachPatternMatched(this._onObjectMatched, this);
