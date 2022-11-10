@@ -14,7 +14,6 @@ sap.ui.define([
 
 			this.setModel(new JSONModel({
 				busy: false,
-				//FilterData
 				MontaKITSet: [],
 				Id_carrinho: "",
 				Aufnr: "",
@@ -37,14 +36,45 @@ sap.ui.define([
 					method: "GET",
 					urlParameters: {
 						Aufnr: this._aufnr,
-						Id_carrinho: this._id_carrinho,
-						Deleta: ""
+						Id_carrinho: this._id_carrinho
 					},
 					"$expand": "Items",
 					success: function(oData) {
-						that.getModel("viewModel").setProperty("/MontaKITSet", oData.results);
-						that.getModel("viewModel").setProperty("/busy", false);
-						that.getView().byId("tbMontaKIT").getBinding("items").refresh();
+						if (!oData.Aufnr) {
+							MessageBox.error("Não foi possível localizar pesagens para essa ordem.");
+							that.navigateBack();
+						} else if (!oData.Id_carrinho) {
+							MessageBox.error("Carrinho não cadastrado para esse centro, verificar.");
+							that.navigateBack();
+						} else {						
+							that.getModel("viewModel").setProperty("/Werks", oData.Werks);
+							that.getView().byId("tbMontaKIT").getBinding("items").refresh();
+							that.scanHU().then(function (scanned) {
+								var barcode = scanned;
+								var oModel2 = that.getModel();
+								oModel2.invalidate();
+								oModel2.callFunction("/MontagemKIT", {
+									method: "GET",
+									urlParameters: {
+										Aufnr: that.getModel("viewModel").getProperty("/Aufnr"),
+										Id_carrinho: that.getModel("viewModel").getProperty("/Id_carrinho"),
+										Werks: that.getModel("viewModel").getProperty("/Werks"),
+										Barcode: barcode,
+										Delete: "I"
+									},
+									"$expand": "Items",
+									success: function(Data) {	
+										that.getModel("viewModel").setProperty("/MontaKITSet", Data.results);
+										that.getModel("viewModel").setProperty("/busy", false);
+										that.getView().byId("tbMontaKIT").getBinding("items").refresh();
+										that.lerCod();
+									},
+									error: function(error) {
+										that.getModel("viewModel").setProperty("/busy", false);
+									}
+								});	
+							});											
+						}
 					},
 					error: function(error) {
 						// alert(this.oResourceBundle.getText("ErrorReadingProfile"));
@@ -56,6 +86,69 @@ sap.ui.define([
 			});
 			// this.getRouter().getRoute("PesagemKIT").attachPatternMatched(this._onObjectMatched, this);
 
+		},
+		lerCod: function() {
+			var that = this;
+			this.scanHU().then(function (scanned) {
+				var barcode = scanned;
+				var oModel = that.getModel();
+				oModel.invalidate();
+				oModel.callFunction("/MontagemKIT", {
+					method: "GET",
+					urlParameters: {
+						Aufnr: that.getModel("viewModel").getProperty("/Aufnr"),
+						Id_carrinho: that.getModel("viewModel").getProperty("/Id_carrinho"),
+						Werks: that.getModel("viewModel").getProperty("/Werks"),
+						Barcode: barcode,
+						Delete: "N"
+					},
+					success: function(oData) {	
+						that.getModel("viewModel").setProperty("/MontaKITSet", oData.results);
+						that.getModel("viewModel").setProperty("/busy", false);
+						that.getView().byId("tbMontaKIT").getBinding("items").refresh();
+						that.lerCod();
+					},
+					error: function(error) {
+						that.getModel("viewModel").setProperty("/busy", false);
+					}
+				});	
+			});					
+		},
+		deletar: function() {
+			var oTable = this.getView().byId("tbMontaKIT");
+			var items = oTable.getSelectedItems().length;
+			var oModel = this.getModel();
+			
+			
+			var that = this;
+			that.getModel("viewModel").setProperty("/busy", true);
+			for (var i = 0; i < items; i++) {
+
+				var item = oTable.getSelectedItems()[i].oBindingContexts.viewModel.getObject();
+
+				oModel.invalidate();
+				oModel.callFunction("/MontagemKIT", {
+					method: "GET",
+					urlParameters: {
+						Aufnr: that.getModel("viewModel").getProperty("/Aufnr"),
+						Id_carrinho: that.getModel("viewModel").getProperty("/Id_carrinho"),
+						Werks: that.getModel("viewModel").getProperty("/Werks"),
+						Barcode: item.Barcode,
+						Delete: "Y"
+					},
+					success: function(oData) {	
+						that.getModel("viewModel").setProperty("/MontaKITSet", oData.results);
+						that.getModel("viewModel").setProperty("/busy", false);
+						that.getView().byId("tbMontaKIT").getBinding("items").refresh();
+					},
+					error: function(error) {
+						that.getModel("viewModel").setProperty("/busy", false);
+					}
+				});
+			}			
+			
+			
+			
 		},
 		onChangeImpressora: function(oEvent) {
 			var oViewModel = this.getModel("viewModel");

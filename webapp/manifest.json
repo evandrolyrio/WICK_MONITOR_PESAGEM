@@ -148,7 +148,7 @@
 						"Montagem"
 					],
 					"layout": "MidColumnFullScreen"
-				}			
+				}
 			],
 			"targets": {
 				"Launcher": {
@@ -170,7 +170,7 @@
 				"Montagem": {
 					"viewName": "MontagemKIT",
 					"controlAggregation": "midColumnPages"
-				}				
+				}
 			}
 		}
 	},

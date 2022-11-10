@@ -48,10 +48,10 @@
 								<cells>
 									<ObjectIdentifier title="{viewModel>Barcode}"/>
 									<ObjectIdentifier title="{viewModel>Matnr}" text="{viewModel>Maktx}"/>
-									<Text text="{viewModel>Charg_op}"/>
-									<Text text="{viewModel>Gamng} {viewModel>Gmein}"/>
-									<Text text="{viewModel>Rsnum}"/>
-									<Text text="{viewModel>Sbmng}"/>
+									<Text text="{viewModel>Charg}"/>
+									<Text text="{viewModel>Qtd_p} {viewModel>Meins}"/>
+									<Text text="{viewModel>Data}"/>
+									<Text text="{viewModel>Id_balanca}"/>
 								</cells>
 							</ColumnListItem>
 						</items>

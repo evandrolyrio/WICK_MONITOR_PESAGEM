@@ -80,29 +80,29 @@ sap.ui.define([
 				});
 			}
 		},
-		// scanHU: function(oEvent) {
-		// 	return new Promise((resolve, reject) => {
-		// 		BarcodeScanner.closeScanDialog();
-		// 		BarcodeScanner.scan(
-		// 			(mResult) => {
-		// 				//If user cancelled scanning, cancel routine.
-		// 				if (mResult.cancelled) {
-		// 					reject();
-		// 				}
+		scanHU: function(oEvent) {
+			return new Promise(function(resolve, reject) {
+				BarcodeScanner.closeScanDialog();
+				BarcodeScanner.scan(
+					function(mResult) {
+						//If user cancelled scanning, cancel routine.
+						if (mResult.cancelled) {
+							reject();
+						}
 
-		// 				if (mResult.text === "") {
-		// 					reject();
-		// 				}
+						if (mResult.text === "") {
+							reject();
+						}
 
-		// 				resolve(mResult.text);
+						resolve(mResult.text);
 
-		// 			},
-		// 			(Error) => {
+					},
+					function(Error) {
 
-		// 			}
-		// 		);
-		// 	});
-		// },		
+					}
+				);
+			});
+		},		
 		// resetChanges: function(sCurrentBindingPath) {
 		// 	return new Promise((resolve, reject) => {
 		// 		var oModel = this.getOwnerComponent().getModel();
