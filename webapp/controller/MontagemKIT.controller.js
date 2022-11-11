@@ -150,6 +150,35 @@ sap.ui.define([
 			
 			
 		},
+		finalizar: function() {
+			var that = this;
+			var oModel = this.getModel();
+			this.getModel("viewModel").setProperty("/busy", true);
+			oModel.invalidate();
+			oModel.callFunction("/Finalizar", {
+				method: "GET",
+				urlParameters: {
+					Aufnr: this.getModel("viewModel").getProperty("/Aufnr"),
+					Id_carrinho: this.getModel("viewModel").getProperty("/Id_carrinho"),
+					Werks: this.getModel("viewModel").getProperty("/Werks")
+				},
+				success: function(oData) {	
+					that.getModel("viewModel").setProperty("/busy", false);
+					if (oData.Matnr) {
+						MessageBox.information("Não lido o componente:" + oData.Matnr);
+					} else if (oData.Qtd_p === "1") {
+						MessageBox.information("Quantidade pesada divergente da LT");
+					} else {
+					   	MessageBox.information("Finalização da montagem do carrinho efetuada.");
+					   	that.navigateBack();
+					}
+					
+				},
+				error: function(error) {
+					that.getModel("viewModel").setProperty("/busy", false);
+				}
+			});			
+		},
 		onChangeImpressora: function(oEvent) {
 			var oViewModel = this.getModel("viewModel");
 			var sData = oEvent.getParameter("selectedItem").getBindingContext().getObject().Id_impressora;
