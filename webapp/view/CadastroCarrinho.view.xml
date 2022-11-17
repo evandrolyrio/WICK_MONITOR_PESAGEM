@@ -1,0 +1,50 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="Monitor.PesagemZPP_MONIT_PESAGEM.controller.CadastroCarrinho"
+	xmlns:html="http://www.w3.org/1999/xhtml" xmlns:semantic="sap.f.semantic" xmlns:form="sap.ui.layout.form" xmlns:l="sap.ui.layout">
+	<semantic:SemanticPage id="mySemanticPage" headerPinnable="true" toggleHeaderOnTitleClick="false" headerExpanded="true" showFooter="false"
+		preserveHeaderStateOnScroll="false">
+		<semantic:headerContent>
+			<form:SimpleForm editable="true" layout="ResponsiveGridLayout" singleContainerFullSize="true" labelSpanXL="4" labelSpanL="3" labelSpanM="12"
+				labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1">
+				<Toolbar>
+					<ToolbarSpacer/>
+					<Button id="editButton" text="Edit" type="Transparent"
+						press="onEdit" />
+					<Button id="saveButton" text="Save" type="Transparent"
+						press="onSave" visible="false" />
+					<Button id="cancelButton" text="Cancel" type="Transparent"
+						press="onCancel" visible="false" />
+				</Toolbar>
+			</form:SimpleForm>
+		</semantic:headerContent>
+		<semantic:content>
+			<IconTabBar select="handleFilterFromBar" class="sapUiResponsiveContentPadding">
+				<content>
+					<Table id="tbCadastroCar" class="custom_table" inset="false" items="{path: 'viewModel>/CarrinhoSet', parameters : { count: true } }"
+						busy="{viewModel>/busy}" mode="MultiSelect"> 
+						<!--busy="{viewModel>/busy}" mode="None">-->
+						<columns>
+							<Column demandPopin="true">
+								<Text text="Centro"/>
+							</Column>
+							<Column minScreenWidth="Desktop" demandPopin="true" popinDisplay="Inline">
+								<Text text="Carrinho" wrapping="true"/>
+							</Column>
+							<Column demandPopin="true" minScreenWidth="Desktop" popinDisplay="Inline">
+								<Text text="Em Uso"/>
+							</Column>
+						</columns>
+						<items>
+							<ColumnListItem vAlign="Middle" press="displayReserva" type="Edit" class="borda_destacada">
+								<cells>
+									<Text text="{viewModel>Werks}"/>
+									<Text text="{viewModel>Id_carrinho}"/>
+									<Text text="{viewModel>Uso}"/>									
+								</cells>
+							</ColumnListItem>
+						</items>
+					</Table>
+				</content>
+			</IconTabBar>
+		</semantic:content>
+	</semantic:SemanticPage>
+</mvc:View>

@@ -148,7 +148,16 @@
 						"Montagem"
 					],
 					"layout": "MidColumnFullScreen"
-				}
+				},
+				{
+					"pattern": "carrinho/{werks}/:layout:",
+					"name": "Carrinho",
+					"target": [
+						"Launcher",
+						"Carrinho"
+					],
+					"layout": "MidColumnFullScreen"
+				}				
 			],
 			"targets": {
 				"Launcher": {
@@ -170,7 +179,11 @@
 				"Montagem": {
 					"viewName": "MontagemKIT",
 					"controlAggregation": "midColumnPages"
-				}
+				},
+				"Carrinho": {
+					"viewName": "CadastroCarrinho",
+					"controlAggregation": "midColumnPages"
+				}	
 			}
 		}
 	},

@@ -33,6 +33,18 @@ sap.ui.define([
 			});
 
 		},
+		goToCarrinho: function() {
+			var oDialogData = this.oDialog.getModel().getData();
+			
+			this.oDialog.close();
+			this.oDialog.destroy(true);
+			
+			this.getRouter().navTo("Carrinho", {
+				werks: oDialogData.Werks,
+				layout: this.getNextUiState(1).layout
+			});
+
+		},		
 		goToKIT: function() {
 			var oDialogData = this.oDialog.getModel().getData();
 			// var sWerks = this.getModel("dialog").getProperty("/Werks");
@@ -107,6 +119,21 @@ sap.ui.define([
 				this.oDialog.open();
 			}
 		},
+		onCarrinho: function(oEvent) {
+			this._currentContext = oEvent.getSource().getBindingContext();
+			this.oDialog = new sap.ui.xmlfragment("Monitor.PesagemZPP_MONIT_PESAGEM.view.fragment.CarrinhoDialog", this);
+			if (this.oDialog) {
+				this.getView().addDependent(this.oDialog);
+
+				this.oDialog.setModel(this.getModel());
+				this.oDialog.setModel(new JSONModel({
+					Werks: ""
+				}, "dialog"));
+
+				this.oDialog.setBindingContext(this._currentContext);
+				this.oDialog.open();
+			}			
+		},		
 		onMontaKIT: function(oEvent) {
 			this._currentContext = oEvent.getSource().getBindingContext();
 			this.oDialog = new sap.ui.xmlfragment("Monitor.PesagemZPP_MONIT_PESAGEM.view.fragment.MontagemKITDialog", this);
