@@ -157,7 +157,7 @@
 						"Carrinho"
 					],
 					"layout": "MidColumnFullScreen"
-				}				
+				}
 			],
 			"targets": {
 				"Launcher": {
@@ -183,7 +183,7 @@
 				"Carrinho": {
 					"viewName": "CadastroCarrinho",
 					"controlAggregation": "midColumnPages"
-				}	
+				}
 			}
 		}
 	},

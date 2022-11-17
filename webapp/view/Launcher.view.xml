@@ -27,16 +27,16 @@
 							<ImageContent src="sap-icon://print"/>
 						</TileContent>
 					</GenericTile>
-					<GenericTile header="Cadastro de Balança" press="goToMovimentacaoMassa">
-						<TileContent footer="Cadastro de Balança">
-							<ImageContent src="sap-icon://compare-2"/>
-						</TileContent>
-					</GenericTile>
-					<GenericTile header="Cadastro de Carrinho" press="onCarrinho">
-						<TileContent footer="Cadastro de Carrinho">
-							<ImageContent src="sap-icon://cart"/>
-						</TileContent>
-					</GenericTile>					
+					<!--<GenericTile header="Cadastro de Balança" press="goToMovimentacaoMassa">-->
+					<!--	<TileContent footer="Cadastro de Balança">-->
+					<!--		<ImageContent src="sap-icon://compare-2"/>-->
+					<!--	</TileContent>-->
+					<!--</GenericTile>-->
+					<!--<GenericTile header="Cadastro de Carrinho" press="onCarrinho">-->
+					<!--	<TileContent footer="Cadastro de Carrinho">-->
+					<!--		<ImageContent src="sap-icon://cart"/>-->
+					<!--	</TileContent>-->
+					<!--</GenericTile>					-->
 				</l:content>
 			</l:Grid>
 		</f:content>
