@@ -29,6 +29,13 @@ sap.ui.define([
 					}
 				});
 			});
+			this.getModel().metadataLoaded().then(function() {
+				that.getModel().read("/BalancaSet", {
+					success: function(oData) {
+						that.getModel("viewModel").setProperty("/BalancaSet", oData.results);
+					}
+				});
+			});			
 
 			this.getRouter().getRoute("Kit").attachPatternMatched(function(oEvent) {
 				var oModel = that.getModel();
@@ -90,6 +97,12 @@ sap.ui.define([
 			oViewModel.setProperty("/Impressora", sData);
 
 		},
+		onChangeBalanca: function(oEvent) {
+			var oViewModel = this.getModel("viewModel");
+			var sData = oEvent.getParameter("selectedItem").getBindingContext().getObject().Id_balanca;
+			oViewModel.setProperty("/Id_balanca", sData);
+
+		},		
 		pesarImprimir: function(oEvent) {
 			var oTable = this.getView().byId("tbPesaKIT");
 			var oSelected = oTable.getSelectedItems()[0].oBindingContexts.viewModel.getObject();
@@ -143,6 +156,42 @@ sap.ui.define([
 						});
 					}
 				}
+			} else {
+				if (!oData.Impressora) {
+					MessageBox.error("Escolher impressora");
+				} else {
+
+					that.getModel("viewModel").setProperty("/busy", true);
+					oModel.invalidate();
+					oModel.callFunction("/ImprimeEtiquetaBal", {
+						method: "GET",
+						urlParameters: {
+							Aufnr: oSelected.Aufnr,
+							Charg: oSelected.Charg,
+							Charg_op: oSelected.Charg_op,
+							Data_valid: oSelected.Expirydate,
+							Maktx: oSelected.Maktx,
+							Maktx_op: oSelected.Maktx_c,
+							Matnr: oSelected.Matnr,
+							Meins: oSelected.Meins,
+							Plnbez: oSelected.Componente,
+							Qtd_pesada: oSelected.Qtd_pesada,
+							Werks: oSelected.Werks,
+							Impressora: oData.Impressora,
+							Id_balanca: oData.Id_balanca
+						},
+						success: function(oData) {
+							that.getModel("viewModel").setProperty("/busy", false);
+							MessageBox.information("Impressão realizada com sucesso");
+						},
+						error: function(error) {
+							// alert(this.oResourceBundle.getText("ErrorReadingProfile"));
+							// oGeneralModel.setProperty("/sideListBusy", false);
+							that.getModel("viewModel").setProperty("/busy", false);
+							MessageBox.information("Erro na impressão");
+						}
+					});
+				}				
 			}
 
 		}

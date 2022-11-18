@@ -6,7 +6,14 @@
 			<form:SimpleForm editable="true" layout="ResponsiveGridLayout" singleContainerFullSize="true" labelSpanXL="4" labelSpanL="3" labelSpanM="12"
 				labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1">
 				<Label text="Balança"/>
-				<Input value="{viewModel>/Id_balanca}"/>
+				<!--<Input value="{viewModel>/Id_balanca}"/>-->
+				<ComboBox change="changeBalanca" selectedKey="{viewModel>/Id_balanca}"
+					items="{ path: '/BalancaSet'}" selectionChange="onChangeBalanca">
+					<!--showSecondaryValues="true">-->
+					<items>
+						<core:ListItem text="{Id_balanca}" key="{Cod}" additionalText="{Cod}"/>
+					</items>
+				</ComboBox>				
 				<Label text="Impressora"/>
 				<ComboBox change="changeImpressora" selectedKey="{viewModel>/Id_impressora}"
 					items="{ path: '/ImpressoraSet'}" selectionChange="onChangeImpressora">
@@ -18,7 +25,7 @@
 				<Toolbar>
 					<ToolbarSpacer/>
 					<Button text="Pesar e Imprimir pesagem" icon="sap-icon://compare-2" press="pesarImprimir"/>
-					<Button text="Dividir Pesagem" icon="sap-icon://duplicate" press="dividirPesagem"/>
+					<!--<Button text="Dividir Pesagem" icon="sap-icon://duplicate" press="dividirPesagem"/>-->
 				</Toolbar>
 			</form:SimpleForm>
 		</semantic:headerContent>
