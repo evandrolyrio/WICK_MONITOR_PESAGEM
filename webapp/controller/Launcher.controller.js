@@ -102,7 +102,7 @@ sap.ui.define([
 			this._currentContext = oEvent.getSource().getBindingContext();
 			this.oDialog = new sap.ui.xmlfragment("Monitor.PesagemZPP_MONIT_PESAGEM.view.fragment.DisplayKITDialog", this);
 			var oDateFormat = sap.ui.core.format.DateFormat.getDateInstance({
-    							pattern: "ddMMYY"
+    							pattern: "dd.MM.YYYY"
 				});
 			if (this.oDialog) {
 				this.getView().addDependent(this.oDialog);
