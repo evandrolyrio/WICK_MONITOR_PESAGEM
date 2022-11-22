@@ -144,7 +144,11 @@ sap.ui.define([
 								},
 								success: function(oData) {
 									that.getModel("viewModel").setProperty("/busy", false);
-									MessageBox.information("Impressão realizada com sucesso");
+									if (!oData.Charg_op) {
+									    MessageBox.information(" Ordem de produção ainda não liberada.");	
+									} else {
+										MessageBox.information("Impressão realizada com sucesso");
+									}
 								},
 								error: function(error) {
 									// alert(this.oResourceBundle.getText("ErrorReadingProfile"));
