@@ -27,7 +27,7 @@ sap.ui.define([
 				var _params = oEvent.getParameters();
 				this._aufnr = _params.arguments.aufnr;
 				this._id_carrinho = _params.arguments.id_carrinho;
-				that.getModel("viewModel").setProperty("/busy", true);
+				// that.getModel("viewModel").setProperty("/busy", true);
 				that.getModel("viewModel").setProperty("/Id_carrinho", this._id_carrinho);
 				that.getModel("viewModel").setProperty("/Aufnr", this._aufnr);
 				
