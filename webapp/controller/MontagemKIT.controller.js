@@ -29,7 +29,7 @@ sap.ui.define([
 				// that.getModel("viewModel").setProperty("/busy", true);
 				that.getModel("viewModel").setProperty("/Id_carrinho", this._id_carrinho);
 				that.getModel("viewModel").setProperty("/Aufnr", this._aufnr);
-				
+				that.getModel("viewModel").setProperty("/MontaKITSet", {});
 				oModel.invalidate();
 				oModel.callFunction("/GetMontagemKIT", {
 					method: "GET",
@@ -74,7 +74,7 @@ sap.ui.define([
 								});	
 							});	
 							
-							that.lerCod();
+							// that.lerCod();
 						}
 					},
 					error: function(error) {
