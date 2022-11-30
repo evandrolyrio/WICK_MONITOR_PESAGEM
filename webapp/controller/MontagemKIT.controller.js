@@ -1,9 +1,8 @@
 sap.ui.define([
 	"Monitor/PesagemZPP_MONIT_PESAGEM/controller/BaseController",
 	"sap/ui/model/json/JSONModel",
-	"sap/ndc/BarcodeScanner",
 	"sap/m/MessageBox"
-], function(BaseController, JSONModel, BarcodeScanner, MessageBox) {
+], function(BaseController, JSONModel, MessageBox) {
 	"use strict";
 
 	return BaseController.extend("Monitor.PesagemZPP_MONIT_PESAGEM.controller.MontagemKIT", {
