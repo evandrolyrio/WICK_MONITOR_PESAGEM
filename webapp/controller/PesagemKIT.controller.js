@@ -185,8 +185,14 @@ sap.ui.define([
 							Id_balanca: oData.Id_balanca
 						},
 						success: function(oData) {
-							that.getModel("viewModel").setProperty("/busy", false);
-							MessageBox.information("Impressão realizada com sucesso");
+							if (!oData.Charg_op) {
+								that.getModel("viewModel").setProperty("/busy", false);
+								MessageBox.information("Erro no movimento 261");									
+							} else {
+								that.getModel("viewModel").setProperty("/busy", false);
+								MessageBox.information("Impressão realizada com sucesso");								
+							}
+
 						},
 						error: function(error) {
 							// alert(this.oResourceBundle.getText("ErrorReadingProfile"));
