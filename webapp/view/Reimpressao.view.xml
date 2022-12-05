@@ -80,7 +80,7 @@
 									<Text text="{viewModel>Charg_kit}"/>
 									<Text text="{path: 'viewModel>Zdata', formatOptions:{ pattern: 'dd/MM/yyyy', UTC: true }}"/>
 									<!--<Text text="{viewModel>Zdata}"/>-->
-									<Text text="{viewModel>Zhora}"/>
+									<Text text="{path: 'viewModel>Zhora', formatOptions:{ pattern: 'HH:mm:ss' }}"/>
 									<Text text="{viewModel>Zuser}"/>
 									<Text text="{viewModel>Id_balanca}"/>
 									<Text text="{viewModel>Zmtcar}"/>

@@ -63,9 +63,13 @@ sap.ui.define([
 									},
 									"$expand": "Items",
 									success: function(Data) {	
-										that.getModel("viewModel").setProperty("/MontaKITSet", Data.results);
-										that.getModel("viewModel").setProperty("/busy", false);
-										that.getView().byId("tbMontaKIT").getBinding("items").refresh();
+										if	(Data.results.length == '0') {
+											MessageBox.information("Não foi possível localizar a etiqueta");
+										} else {
+											that.getModel("viewModel").setProperty("/MontaKITSet", Data.results);
+											that.getModel("viewModel").setProperty("/busy", false);
+											that.getView().byId("tbMontaKIT").getBinding("items").refresh();
+										}
 										
 									},
 									error: function(error) {
@@ -104,9 +108,13 @@ sap.ui.define([
 						Delete: "N"
 					},
 					success: function(oData) {	
-						that.getModel("viewModel").setProperty("/MontaKITSet", oData.results);
-						that.getModel("viewModel").setProperty("/busy", false);
-						that.getView().byId("tbMontaKIT").getBinding("items").refresh();
+						if	(oData.results.length == '0') {
+							MessageBox.information("Não foi possível localizar a etiqueta");
+						} else {						
+							that.getModel("viewModel").setProperty("/MontaKITSet", oData.results);
+							that.getModel("viewModel").setProperty("/busy", false);
+							that.getView().byId("tbMontaKIT").getBinding("items").refresh();
+						}
 						// that.lerCod();
 					},
 					error: function(error) {
