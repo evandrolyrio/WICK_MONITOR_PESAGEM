@@ -40,11 +40,11 @@ sap.ui.define([
 			this.getRouter().getRoute("Kit").attachPatternMatched(function(oEvent) {
 				var oModel = that.getModel();
 				var _params = oEvent.getParameters();
-				this._werks = _params.arguments.werks;
-				this._matnr = _params.arguments.matnr;
-				this._aufnr = _params.arguments.aufnr;
-				this._idnrk = _params.arguments.idnrk;
-				this._gstrp = _params.arguments.gstrp;
+				that._werks = _params.arguments.werks;
+				that._matnr = _params.arguments.matnr;
+				that._aufnr = _params.arguments.aufnr;
+				that._idnrk = _params.arguments.idnrk;
+				that._gstrp = _params.arguments.gstrp;
 				// this.getModel("viewModel").setProperty("/Werks", this._werks);
 				// this.getUserDefaultParameters().then(function() {
 				// 	this.getModel("viewModel").setProperty("/busy", false);
@@ -55,11 +55,12 @@ sap.ui.define([
 				oModel.callFunction("/GetPesagemKIT", {
 					method: "GET",
 					urlParameters: {
-						Werks: this._werks,
-						Matnr: this._matnr,
-						Aufnr: this._aufnr,
-						Idnrk: this._idnrk,
-						Gstrp: this._gstrp
+						Werks: that._werks,
+						Matnr: that._matnr,
+						Aufnr: that._aufnr,
+						Idnrk: that._idnrk,
+						Gstrp: that._gstrp,
+						Id_balanca: 'N'
 					},
 					"$expand": "Items",
 					success: function(oData) {
@@ -102,7 +103,42 @@ sap.ui.define([
 			var sData = oEvent.getParameter("selectedItem").getBindingContext().getObject().Id_balanca;
 			oViewModel.setProperty("/Id_balanca", sData);
 
-		},		
+		},	
+		atualizaPeso: function(oEvent) {
+			var oModel = this.getModel();
+			var oData = this.getModel("viewModel").getData();
+			var that = this;
+			
+			if (!oData.Id_balanca) {
+				MessageBox.error("Escolher balança");
+			} else {
+				
+				that.getModel("viewModel").setProperty("/busy", true);
+				oModel.invalidate();
+				oModel.callFunction("/GetPesagemKIT", {
+					method: "GET",
+					urlParameters: {
+						Werks: this._werks,
+						Matnr: this._matnr,
+						Aufnr: this._aufnr,
+						Idnrk: this._idnrk,
+						Gstrp: this._gstrp,
+						Id_balanca: oData.Id_balanca
+					},
+					success: function(Data) {
+						that.getModel("viewModel").setProperty("/PesaKITSet", Data.results);
+						that.getModel("viewModel").setProperty("/busy", false);
+						that.getView().byId("tbPesaKIT").getBinding("items").refresh();
+					},
+					error: function(error) {
+						// alert(this.oResourceBundle.getText("ErrorReadingProfile"));
+						// oGeneralModel.setProperty("/sideListBusy", false);
+						that.getModel("viewModel").setProperty("/busy", false);
+					}
+				});				
+				
+			}
+		},
 		pesarImprimir: function(oEvent) {
 			var oTable = this.getView().byId("tbPesaKIT");
 			var oSelected = oTable.getSelectedItems()[0].oBindingContexts.viewModel.getObject();
@@ -114,11 +150,11 @@ sap.ui.define([
 				if (!oData.Impressora) {
 					MessageBox.error("Escolher impressora");
 				} else {
-					if (!oSelected.Qtd_pesada) {
+					if (!oSelected.Peso) {
 						MessageBox.error("Campo Qtd.Pesada está vazio e é obrigatório em pesagem manual.");
 					} else {
 						// MessageBox.information("Pesagem manual, o peso considerado será o informado.");
-						this.confirmAction("Pesagem manual, o peso considerado será o informado:" + oSelected.Qtd_pesada, "Confirm", function(answer) {
+						this.confirmAction("Pesagem manual, o peso considerado será o informado:" + oSelected.Peso, "Confirm", function(answer) {
 
 							if (answer !== sap.m.MessageBox.Action.YES) {
 								return;
@@ -138,7 +174,7 @@ sap.ui.define([
 									Matnr: oSelected.Matnr,
 									Meins: oSelected.Meins,
 									Plnbez: oSelected.Componente,
-									Qtd_pesada: oSelected.Qtd_pesada,
+									Qtd_pesada: oSelected.Peso,
 									Werks: oSelected.Werks,
 									Impressora: oData.Impressora
 								},

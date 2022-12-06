@@ -24,6 +24,7 @@
 				</ComboBox>
 				<Toolbar>
 					<ToolbarSpacer/>
+					<Button text="Atualiza peso" icon="sap-icon://refresh" press="atualizaPeso"/>
 					<Button text="Pesar e Imprimir pesagem" icon="sap-icon://compare-2" press="pesarImprimir"/>
 					<!--<Button text="Dividir Pesagem" icon="sap-icon://duplicate" press="dividirPesagem"/>-->
 				</Toolbar>
@@ -70,6 +71,9 @@
 								<Text text="Qtd Necess"/>
 							</Column>	
 							<Column demandPopin="true" minScreenWidth="Desktop" popinDisplay="Inline">
+								<Text text="Peso"/>
+							</Column>							
+							<Column demandPopin="true" minScreenWidth="Desktop" popinDisplay="Inline">
 								<Text text="Qtd Pesada"/>
 							</Column>	
 							<Column demandPopin="true" minScreenWidth="Desktop" popinDisplay="Inline">
@@ -93,8 +97,8 @@
 									<Text text="{viewModel>Lgort}"/>
 									<!--<ObjectIdentifier title="{viewModel>Bdmng}" text="{viewModel>Meins}"/>-->
 									<Text text="{viewModel>Bdmng} {viewModel>Meins}"/>
-									<!--<Text text="{viewModel>Qtd_pesada}"/>-->
-									<Input value="{viewModel>Qtd_pesada}" type="{Text}" fieldWidth="{60%}" editable="true"/>
+									<Text text="{viewModel>Qtd_pesada}"/>
+									<Input value="{viewModel>Peso}" type="{Text}" fieldWidth="{60%}" editable="true"/>
 									<Input value="{viewModel>Charg}" type="{Text}" fieldWidth="{60%}" editable="true"/>
 									<!--<Text text="{viewModel>Charg}"/>-->
 
