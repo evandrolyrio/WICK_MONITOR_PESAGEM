@@ -40,7 +40,7 @@
 								<Text text="Ord produção"/>
 							</Column>
 							<Column demandPopin="true">
-								<Text text="Material"/>
+								<Text text="SKU"/>
 							</Column>
 							<Column minScreenWidth="Desktop" demandPopin="true" popinDisplay="Inline">
 								<Text text="Lote OP" wrapping="true"/>
@@ -61,7 +61,7 @@
 								<Text text="Centro"/>
 							</Column>
 							<Column demandPopin="true" minScreenWidth="Desktop" popinDisplay="Inline">
-								<Text text="Componente"/>
+								<Text text="Matéria-prima"/>
 							</Column>
 							<Column demandPopin="true" minScreenWidth="Desktop" popinDisplay="Inline">
 								<Text text="Depósito"/>
