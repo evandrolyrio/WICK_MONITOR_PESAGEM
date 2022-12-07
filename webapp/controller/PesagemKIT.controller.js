@@ -221,7 +221,10 @@ sap.ui.define([
 							Id_balanca: oData.Id_balanca
 						},
 						success: function(oData) {
-							if (!oData.Charg_op) {
+							if (!oData.Qtd_pesada) {
+								that.getModel("viewModel").setProperty("/busy", false);
+								MessageBox.information("Peso fora da tolerância");							
+							} else if (!oData.Charg_op) {
 								that.getModel("viewModel").setProperty("/busy", false);
 								MessageBox.information("Erro no movimento 261");									
 							} else {
