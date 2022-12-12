@@ -6,13 +6,13 @@
 				<Label text="Centro"/>
 				<Input value="{/Werks}" showSuggestion="true" showTableSuggestionValueHelp="false"
 					suggestionItemSelected="suggestionItemSelected"></Input>
-				<Label text="Material"/>
+				<Label text="SKU"/>
 				<Input value="{/Matnr}" showSuggestion="true" showTableSuggestionValueHelp="false"
 					suggestionItemSelected="suggestionItemSelected"></Input>	
 				<Label text="Ordem de produção"/>
 				<Input value="{/Aufnr}" showSuggestion="true" showTableSuggestionValueHelp="false"
 					suggestionItemSelected="suggestionItemSelected"></Input>	
-				<Label text="Componente"/>					
+				<Label text="Matéria-prima"/>					
 				<Input value="{/Idnrk}" showSuggestion="true" showTableSuggestionValueHelp="false"
 					suggestionItemSelected="suggestionItemSelected"></Input>		
 				<Label text="Data da necessidade"/>		
