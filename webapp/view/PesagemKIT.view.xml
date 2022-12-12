@@ -71,7 +71,7 @@
 								<Text text="Qtd Necess"/>
 							</Column>	
 							<Column demandPopin="true" minScreenWidth="Desktop" popinDisplay="Inline">
-								<Text text="Peso"/>
+								<Text text="Peso Básico"/>
 							</Column>							
 							<Column demandPopin="true" minScreenWidth="Desktop" popinDisplay="Inline">
 								<Text text="Qtd Pesada"/>
