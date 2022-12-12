@@ -43,30 +43,30 @@
 							<Column demandPopin="true">
 								<Text text="SKU"/>
 							</Column>
-							<Column minScreenWidth="Desktop" demandPopin="true" popinDisplay="Inline">
-								<Text text="Lote OP" wrapping="true"/>
-							</Column>
-							<Column demandPopin="true" minScreenWidth="Desktop" popinDisplay="Inline" width="6%">
-								<Text text="Qtd OP"/>
-							</Column>
-							<Column demandPopin="true" minScreenWidth="Desktop" popinDisplay="Inline">
-								<Text text="Reserva"/>
-							</Column>
-							<Column demandPopin="true" minScreenWidth="Desktop" popinDisplay="Inline">
-								<Text text="Qtd básica"/>
-							</Column>
+							<!--<Column minScreenWidth="Desktop" demandPopin="true" popinDisplay="Inline">-->
+							<!--	<Text text="Lote OP" wrapping="true"/>-->
+							<!--</Column>-->
+							<!--<Column demandPopin="true" minScreenWidth="Desktop" popinDisplay="Inline" width="6%">-->
+							<!--	<Text text="Qtd OP"/>-->
+							<!--</Column>-->
+							<!--<Column demandPopin="true" minScreenWidth="Desktop" popinDisplay="Inline">-->
+							<!--	<Text text="Reserva"/>-->
+							<!--</Column>-->
+							<!--<Column demandPopin="true" minScreenWidth="Desktop" popinDisplay="Inline">-->
+							<!--	<Text text="Qtd básica"/>-->
+							<!--</Column>-->
 							<Column demandPopin="true" minScreenWidth="Desktop" popinDisplay="Inline">
 								<Text text="Qtd KIT"/>
 							</Column>	
-							<Column demandPopin="true" minScreenWidth="Desktop" popinDisplay="Inline">
-								<Text text="Centro"/>
-							</Column>
+							<!--<Column demandPopin="true" minScreenWidth="Desktop" popinDisplay="Inline">-->
+							<!--	<Text text="Centro"/>-->
+							<!--</Column>-->
 							<Column demandPopin="true" minScreenWidth="Desktop" popinDisplay="Inline">
 								<Text text="Matéria-prima"/>
 							</Column>
-							<Column demandPopin="true" minScreenWidth="Desktop" popinDisplay="Inline">
-								<Text text="Depósito"/>
-							</Column>	
+							<!--<Column demandPopin="true" minScreenWidth="Desktop" popinDisplay="Inline">-->
+							<!--	<Text text="Depósito"/>-->
+							<!--</Column>	-->
 							<Column demandPopin="true" minScreenWidth="Desktop" popinDisplay="Inline">
 								<Text text="Qtd Necess"/>
 							</Column>	
@@ -86,15 +86,15 @@
 								<cells>
 									<ObjectIdentifier title="{viewModel>Aufnr}"/>
 									<ObjectIdentifier title="{viewModel>Matnr}" text="{viewModel>Maktx}"/>
-									<Text text="{viewModel>Charg_op}"/>
+									<!--<Text text="{viewModel>Charg_op}"/>-->
 									<!--<ObjectIdentifier title="{viewModel>Gamng}" text="{viewModel>Gmein}"/>-->
-									<Text text="{viewModel>Gamng} {viewModel>Gmein}"/>
-									<Text text="{viewModel>Rsnum}"/>
-									<Text text="{viewModel>Sbmng}"/>
+									<!--<Text text="{viewModel>Gamng} {viewModel>Gmein}"/>-->
+									<!--<Text text="{viewModel>Rsnum}"/>-->
+									<!--<Text text="{viewModel>Sbmng}"/>-->
 									<Text text="{viewModel>Qtd_kit}"/>
-									<Text text="{viewModel>Werks}"/>
+									<!--<Text text="{viewModel>Werks}"/>-->
 									<ObjectIdentifier title="{viewModel>Componente}" text="{viewModel>Maktx_c}"/>
-									<Text text="{viewModel>Lgort}"/>
+									<!--<Text text="{viewModel>Lgort}"/>-->
 									<!--<ObjectIdentifier title="{viewModel>Bdmng}" text="{viewModel>Meins}"/>-->
 									<Text text="{viewModel>Bdmng} {viewModel>Meins}"/>
 									<Text text="{viewModel>Qtd_pesada}"/>
