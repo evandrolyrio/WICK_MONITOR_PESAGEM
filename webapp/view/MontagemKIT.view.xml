@@ -10,9 +10,9 @@
 				<ObjectAttribute title="Centro" text="{viewModel>/Werks}"/>
 				<Toolbar>
 					<ToolbarSpacer/>
-					<Button text="Ler COD" icon="sap-icon://bar-code" press="lerCod"/>
-					<Button text="Eliminar linha" icon="sap-icon://delete" press="deletar"/>
-					<Button text="Finalizar carrinho" icon="sap-icon://complete" press="finalizar"/>
+					<Button text="Ler" icon="sap-icon://bar-code" press="lerCod"/>
+					<Button text="Eliminar" icon="sap-icon://delete" press="deletar"/>
+					<Button text="Finalizar" icon="sap-icon://complete" press="finalizar"/>
 					
 				</Toolbar>
 			</form:SimpleForm>
