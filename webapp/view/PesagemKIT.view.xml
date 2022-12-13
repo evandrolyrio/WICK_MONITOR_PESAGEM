@@ -78,7 +78,10 @@
 							</Column>	
 							<Column demandPopin="true" minScreenWidth="Desktop" popinDisplay="Inline">
 								<Text text="Lote"/>
-							</Column>								
+							</Column>
+							<Column demandPopin="true" minScreenWidth="Desktop" popinDisplay="Inline">
+								<Text text="Quebra Lote"/>
+							</Column>							
 
 						</columns>
 						<items>
@@ -100,6 +103,7 @@
 									<Text text="{viewModel>Qtd_pesada}"/>
 									<Input value="{viewModel>Peso}" type="{Text}" fieldWidth="{60%}" editable="true"/>
 									<Input value="{viewModel>Charg}" type="{Text}" fieldWidth="{60%}" editable="true"/>
+									<CheckBox text="Quebra Lote" selected="{viewModel>Quebra}" />
 									<!--<Text text="{viewModel>Charg}"/>-->
 
 								</cells>

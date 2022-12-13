@@ -19,6 +19,7 @@ sap.ui.define([
 				Id_balanca: "",
 				Impressora: "",
 				Peso: "",
+				Quebra: "",
 				Editable: ""
 			}), "viewModel");
 			var that = this;
@@ -146,6 +147,12 @@ sap.ui.define([
 
 			var oData = this.getModel("viewModel").getData();
 			var that = this;
+			
+			var quebra = "N";
+			if (oSelected.Quebra === true) {
+				quebra = "S";
+			}
+			
 			if (!oData.Id_balanca) {
 				if (!oData.Impressora) {
 					MessageBox.error("Escolher impressora");
@@ -176,7 +183,8 @@ sap.ui.define([
 									Plnbez: oSelected.Componente,
 									Qtd_pesada: oSelected.Peso,
 									Werks: oSelected.Werks,
-									Impressora: oData.Impressora
+									Impressora: oData.Impressora,
+									Quebra: quebra
 								},
 								success: function(oData) {
 									that.getModel("viewModel").setProperty("/busy", false);
@@ -218,7 +226,8 @@ sap.ui.define([
 							Qtd_pesada: oSelected.Qtd_pesada,
 							Werks: oSelected.Werks,
 							Impressora: oData.Impressora,
-							Id_balanca: oData.Id_balanca
+							Id_balanca: oData.Id_balanca,
+							Quebra: quebra
 						},
 						success: function(oData) {
 							if (!oData.Qtd_pesada) {
