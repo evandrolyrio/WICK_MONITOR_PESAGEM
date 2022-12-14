@@ -184,11 +184,14 @@ sap.ui.define([
 									Qtd_pesada: oSelected.Peso,
 									Werks: oSelected.Werks,
 									Impressora: oData.Impressora,
-									Quebra: quebra
+									Quebra: quebra,
+									Bdmng: oSelected.Qtd_pesada
 								},
 								success: function(oData) {
 									that.getModel("viewModel").setProperty("/busy", false);
-									if (!oData.Charg_op) {
+									if (!oData.Aufnr) {
+										MessageBox.information("Esse componente já foi totalmente pesado para essa ordem, verificar");	
+									} else if (!oData.Charg_op) {
 									    MessageBox.information(" Ordem de produção ainda não liberada.");	
 									} else {
 										MessageBox.information("Impressão realizada com sucesso");
@@ -230,7 +233,9 @@ sap.ui.define([
 							Quebra: quebra
 						},
 						success: function(oData) {
-							if (!oData.Qtd_pesada) {
+							if (!oData.Aufnr) {
+								MessageBox.information("Esse componente já foi totalmente pesado para essa ordem, verificar");	
+							} else if (!oData.Qtd_pesada) {
 								that.getModel("viewModel").setProperty("/busy", false);
 								MessageBox.information("Peso fora da tolerância");							
 							} else if (!oData.Charg_op) {
