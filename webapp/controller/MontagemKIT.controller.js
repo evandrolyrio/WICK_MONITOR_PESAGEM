@@ -45,6 +45,9 @@ sap.ui.define([
 						} else if (!oData.Id_carrinho) {
 							MessageBox.error("Carrinho não cadastrado para esse centro, verificar.");
 							that.navigateBack();
+						} else if (oData.Id_carrinho == "X") {
+							MessageBox.error("Esse carrinho já está sendo utilizado, usar outro.");
+							that.navigateBack();
 						} else if (!oData.Werks) {
 							MessageBox.error("Já foram produzidos todos os KITs dessa ordem.");
 							that.navigateBack();
