@@ -194,7 +194,7 @@ sap.ui.define([
 									} else if (!oData.Charg_op) {
 									    MessageBox.information(" Ordem de produção ainda não liberada.");	
 									} else {
-										MessageBox.information("Impressão realizada com sucesso");
+										// MessageBox.information("Impressão realizada com sucesso");
 									}
 								},
 								error: function(error) {
@@ -243,7 +243,7 @@ sap.ui.define([
 								MessageBox.information("Erro no movimento 261");									
 							} else {
 								that.getModel("viewModel").setProperty("/busy", false);
-								MessageBox.information("Impressão realizada com sucesso");								
+								// MessageBox.information("Impressão realizada com sucesso");								
 							}
 
 						},
