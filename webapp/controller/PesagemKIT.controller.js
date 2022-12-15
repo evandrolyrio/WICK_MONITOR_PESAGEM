@@ -61,7 +61,8 @@ sap.ui.define([
 						Aufnr: that._aufnr,
 						Idnrk: that._idnrk,
 						Gstrp: that._gstrp,
-						Id_balanca: 'N'
+						Id_balanca: 'N',
+						Sku: ""
 					},
 					"$expand": "Items",
 					success: function(oData) {
@@ -106,6 +107,8 @@ sap.ui.define([
 
 		},	
 		atualizaPeso: function(oEvent) {
+			var oTable = this.getView().byId("tbPesaKIT");
+			var oSelected = oTable.getSelectedItems()[0].oBindingContexts.viewModel.getObject();			
 			var oModel = this.getModel();
 			var oData = this.getModel("viewModel").getData();
 			var that = this;
@@ -116,27 +119,53 @@ sap.ui.define([
 				
 				that.getModel("viewModel").setProperty("/busy", true);
 				oModel.invalidate();
-				oModel.callFunction("/GetPesagemKIT", {
-					method: "GET",
-					urlParameters: {
-						Werks: this._werks,
-						Matnr: this._matnr,
-						Aufnr: this._aufnr,
-						Idnrk: this._idnrk,
-						Gstrp: this._gstrp,
-						Id_balanca: oData.Id_balanca
-					},
-					success: function(Data) {
-						that.getModel("viewModel").setProperty("/PesaKITSet", Data.results);
-						that.getModel("viewModel").setProperty("/busy", false);
-						that.getView().byId("tbPesaKIT").getBinding("items").refresh();
-					},
-					error: function(error) {
-						// alert(this.oResourceBundle.getText("ErrorReadingProfile"));
-						// oGeneralModel.setProperty("/sideListBusy", false);
-						that.getModel("viewModel").setProperty("/busy", false);
-					}
-				});				
+				if	(!oSelected.Componente) {
+					oModel.callFunction("/GetPesagemKIT", {
+						method: "GET",
+						urlParameters: {
+							Werks: this._werks,
+							Matnr: this._matnr,
+							Aufnr: this._aufnr,
+							Idnrk: this._idnrk,
+							Gstrp: this._gstrp,
+							Id_balanca: oData.Id_balanca,
+							Sku: "0"
+						},
+						success: function(Data) {
+							that.getModel("viewModel").setProperty("/PesaKITSet", Data.results);
+							that.getModel("viewModel").setProperty("/busy", false);
+							that.getView().byId("tbPesaKIT").getBinding("items").refresh();
+						},
+						error: function(error) {
+							// alert(this.oResourceBundle.getText("ErrorReadingProfile"));
+							// oGeneralModel.setProperty("/sideListBusy", false);
+							that.getModel("viewModel").setProperty("/busy", false);
+						}
+					});	
+				} else {
+    				oModel.callFunction("/GetPesagemKIT", {
+						method: "GET",
+						urlParameters: {
+							Werks: this._werks,
+							Matnr: this._matnr,
+							Aufnr: this._aufnr,
+							Idnrk: this._idnrk,
+							Gstrp: this._gstrp,
+							Id_balanca: oData.Id_balanca,
+							Sku: oSelected.Componente
+						},
+						success: function(Data) {
+							that.getModel("viewModel").setProperty("/PesaKITSet", Data.results);
+							that.getModel("viewModel").setProperty("/busy", false);
+							that.getView().byId("tbPesaKIT").getBinding("items").refresh();
+						},
+						error: function(error) {
+							// alert(this.oResourceBundle.getText("ErrorReadingProfile"));
+							// oGeneralModel.setProperty("/sideListBusy", false);
+							that.getModel("viewModel").setProperty("/busy", false);
+						}
+					});						
+				}
 				
 			}
 		},
