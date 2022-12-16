@@ -104,20 +104,47 @@ sap.ui.define([
 			var oDateFormat = sap.ui.core.format.DateFormat.getDateInstance({
     							pattern: "dd.MM.YYYY"
 				});
-			if (this.oDialog) {
-				this.getView().addDependent(this.oDialog);
+		    var oModel = this.getModel();
+		    var that = this;
+			oModel.invalidate();
+			oModel.callFunction("/GetCentro", {
+				method: "GET",
+				success: function(oData) {
+					that.getModel("viewModel").setProperty("/Werks", oData.Werks);
+					that.getModel("viewModel").setProperty("/busy", false);
+					if (that.oDialog) {
+						that.getView().addDependent(that.oDialog);
+		
+						that.oDialog.setModel(that.getModel());
+						that.oDialog.setModel(new JSONModel({
+							Werks: that.getModel("viewModel").getProperty("/Werks"),
+							Matnr: "",
+							Aufnr: "",
+							Gstrp: oDateFormat.format(new Date())
+						}, "dialog"));
+		
+						that.oDialog.setBindingContext(that._currentContext);
+						that.oDialog.open();
+					}					
+				},
+				error: function(error) {
+					that.getModel("viewModel").setProperty("/busy", false);
+				}
+			});				
+			// if (this.oDialog) {
+			// 	this.getView().addDependent(this.oDialog);
 
-				this.oDialog.setModel(this.getModel());
-				this.oDialog.setModel(new JSONModel({
-					Werks: "",
-					Matnr: "",
-					Aufnr: "",
-					Gstrp: oDateFormat.format(new Date())
-				}, "dialog"));
+			// 	this.oDialog.setModel(this.getModel());
+			// 	this.oDialog.setModel(new JSONModel({
+			// 		Werks: that.getModel("viewModel").getProperty("/Werks"),
+			// 		Matnr: "",
+			// 		Aufnr: "",
+			// 		Gstrp: oDateFormat.format(new Date())
+			// 	}, "dialog"));
 
-				this.oDialog.setBindingContext(this._currentContext);
-				this.oDialog.open();
-			}
+			// 	this.oDialog.setBindingContext(this._currentContext);
+			// 	this.oDialog.open();
+			// }
 		},
 		onCarrinho: function(oEvent) {
 			this._currentContext = oEvent.getSource().getBindingContext();

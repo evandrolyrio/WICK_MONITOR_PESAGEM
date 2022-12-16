@@ -221,8 +221,10 @@ sap.ui.define([
 									if (!oData.Aufnr) {
 										MessageBox.information("Esse componente já foi totalmente pesado para essa ordem, verificar");	
 									} else if (!oData.Charg_op) {
-									    MessageBox.information(" Ordem de produção ainda não liberada.");	
+									    // MessageBox.information(" Ordem de produção ainda não liberada.");
+									    MessageBox.information(oData.Msg);
 									} else {
+										oTable.removeSelections();
 										// MessageBox.information("Impressão realizada com sucesso");
 									}
 								},
@@ -269,9 +271,11 @@ sap.ui.define([
 								MessageBox.information("Peso fora da tolerância");							
 							} else if (!oData.Charg_op) {
 								that.getModel("viewModel").setProperty("/busy", false);
-								MessageBox.information("Erro no movimento 261");									
+								// MessageBox.information("Erro no movimento 261");
+								MessageBox.information(oData.Msg);
 							} else {
 								that.getModel("viewModel").setProperty("/busy", false);
+								oTable.removeSelections();
 								// MessageBox.information("Impressão realizada com sucesso");								
 							}
 
