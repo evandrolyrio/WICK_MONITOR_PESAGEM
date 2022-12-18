@@ -97,6 +97,12 @@ sap.ui.define([
 				aufnr: oDialogData.Aufnr,
 				layout: this.getNextUiState(1).layout
 			});
+		},	
+		onDisplayInd: function(oEvent) {
+
+			this.getRouter().navTo("Ind", {
+				layout: this.getNextUiState(1).layout
+			});
 		},		
 		onDisplayKIT: function(oEvent) {
 			this._currentContext = oEvent.getSource().getBindingContext();

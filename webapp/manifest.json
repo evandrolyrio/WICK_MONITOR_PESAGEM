@@ -132,6 +132,15 @@
 					"layout": "MidColumnFullScreen"
 				},
 				{
+					"pattern": "ind/:layout:",
+					"name": "Ind",
+					"target": [
+						"Launcher",
+						"Ind"
+					],
+					"layout": "MidColumnFullScreen"
+				},				
+				{
 					"pattern": "Reimpressao/{aufnr}/:layout:",
 					"name": "Reimpressao",
 					"target": [
@@ -172,6 +181,10 @@
 					"viewName": "PesagemKIT",
 					"controlAggregation": "midColumnPages"
 				},
+				"Ind": {
+					"viewName": "PesagemInd",
+					"controlAggregation": "midColumnPages"
+				},				
 				"Reimpressao": {
 					"viewName": "Reimpressao",
 					"controlAggregation": "midColumnPages"

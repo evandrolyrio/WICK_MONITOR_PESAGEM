@@ -1,0 +1,65 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="Monitor.PesagemZPP_MONIT_PESAGEM.controller.PesagemInd"
+	xmlns:html="http://www.w3.org/1999/xhtml" xmlns:semantic="sap.f.semantic" xmlns:form="sap.ui.layout.form" xmlns:l="sap.ui.layout">
+	<semantic:SemanticPage id="mySemanticPage" headerPinnable="true" toggleHeaderOnTitleClick="false" headerExpanded="true" showFooter="false"
+		preserveHeaderStateOnScroll="true">
+		<semantic:headerContent>
+			<form:SimpleForm editable="true" layout="ResponsiveGridLayout" singleContainerFullSize="true" labelSpanXL="4" labelSpanL="3" labelSpanM="12"
+				labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1">
+				<Label text="Balança"/>
+				<!--<Input value="{viewModel>/Id_balanca}"/>-->
+				<ComboBox change="changeBalanca" selectedKey="{viewModel>/Id_balanca}"
+					items="{ path: '/BalancaSet'}" selectionChange="onChangeBalanca">
+					<!--showSecondaryValues="true">-->
+					<items>
+						<core:ListItem text="{Id_balanca}" key="{Cod}" additionalText="{Cod}"/>
+					</items>
+				</ComboBox>				
+				<Label text="Impressora"/>
+				<ComboBox change="changeImpressora" selectedKey="{viewModel>/Id_impressora}"
+					items="{ path: '/ImpressoraSet'}" selectionChange="onChangeImpressora">
+					<!--showSecondaryValues="true">-->
+					<items>
+						<core:ListItem text="{Id_impressora}" key="{Cod}" additionalText="{Cod}"/>
+					</items>
+				</ComboBox>
+				<Toolbar>
+					<ToolbarSpacer/>
+					<Button text="Atualiza peso" icon="sap-icon://refresh" press="atualizaPeso"/>
+					<Button text="Pesar e Imprimir pesagem" icon="sap-icon://compare-2" press="pesarImprimir"/>
+					<!--<Button text="Dividir Pesagem" icon="sap-icon://duplicate" press="dividirPesagem"/>-->
+				</Toolbar>
+			</form:SimpleForm>
+		</semantic:headerContent>
+		<semantic:content>
+			<IconTabBar select="handleFilterFromBar" class="sapUiResponsiveContentPadding">
+				<content>
+					<Table id="tbPesaInd" class="custom_table" inset="false" items="{path: 'viewModel>/PesaKITSet', parameters : { count: true } }"
+						busy="{viewModel>/busy}" mode="MultiSelect"> 
+						<!--busy="{viewModel>/busy}" mode="None">-->
+						<columns>
+							<Column demandPopin="true" minScreenWidth="Desktop" popinDisplay="Inline">
+								<Text text="Matéria-prima"/>
+							</Column>
+							<Column demandPopin="true" minScreenWidth="Desktop" popinDisplay="Inline">
+								<Text text="Qtd Pesada"/>
+							</Column>	
+							<Column demandPopin="true" minScreenWidth="Desktop" popinDisplay="Inline">
+								<Text text="Lote"/>
+							</Column>
+						</columns>
+						<items>
+							<ColumnListItem vAlign="Middle" press="displayReserva" type="Navigation" class="borda_destacada">
+								<cells>
+									<ObjectIdentifier title="{viewModel>Componente}" text="{viewModel>Maktx_c}"/>
+									<Input value="{viewModel>Peso}" type="{Text}" fieldWidth="{60%}" editable="true"/>
+									<Input value="{viewModel>Charg}" type="{Text}" fieldWidth="{60%}" editable="true"/>
+									<!--<CheckBox text="Quebra Lote" selected="{viewModel>Quebra}" />-->
+								</cells>
+							</ColumnListItem>
+						</items>
+					</Table>
+				</content>
+			</IconTabBar>
+		</semantic:content>
+	</semantic:SemanticPage>
+</mvc:View>

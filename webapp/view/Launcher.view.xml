@@ -27,6 +27,11 @@
 							<ImageContent src="sap-icon://print"/>
 						</TileContent>
 					</GenericTile>
+			        <GenericTile header="Pesagem Individial" press="onDisplayInd">
+						<TileContent footer="Pesagem Individial">
+							<ImageContent src="sap-icon://sap-box"/>
+						</TileContent>
+					</GenericTile>					
 					<!--<GenericTile header="Cadastro de Balança" press="goToMovimentacaoMassa">-->
 					<!--	<TileContent footer="Cadastro de Balança">-->
 					<!--		<ImageContent src="sap-icon://compare-2"/>-->
