@@ -78,7 +78,7 @@ sap.ui.define([
 
 		},	
 		atualizaPeso: function(oEvent) {
-			var oTable = this.getView().byId("tbPesaKIT");
+			var oTable = this.getView().byId("tbPesaInd");
 			var oSelected = oTable.getSelectedItems()[0].oBindingContexts.viewModel.getObject();			
 			var oModel = this.getModel();
 			var oData = this.getModel("viewModel").getData();
@@ -100,7 +100,7 @@ sap.ui.define([
 						success: function(Data) {
 							that.getModel("viewModel").setProperty("/PesaKITSet", Data.results);
 							that.getModel("viewModel").setProperty("/busy", false);
-							that.getView().byId("tbPesaKIT").getBinding("items").refresh();
+							that.getView().byId("tbPesaInd").getBinding("items").refresh();
 						},
 						error: function(error) {
 							// alert(this.oResourceBundle.getText("ErrorReadingProfile"));
@@ -109,21 +109,16 @@ sap.ui.define([
 						}
 					});	
 				} else {
-    				oModel.callFunction("/GetPesagemKIT", {
+    				oModel.callFunction("/GetPesagemInd", {
 						method: "GET",
 						urlParameters: {
-							Werks: this._werks,
-							Matnr: this._matnr,
-							Aufnr: this._aufnr,
-							Idnrk: this._idnrk,
-							Gstrp: this._gstrp,
-							Id_balanca: oData.Id_balanca,
-							Sku: oSelected.Componente
+							Barcode: that._barcode,
+							Id_balanca: oData.Id_balanca
 						},
 						success: function(Data) {
 							that.getModel("viewModel").setProperty("/PesaKITSet", Data.results);
 							that.getModel("viewModel").setProperty("/busy", false);
-							that.getView().byId("tbPesaKIT").getBinding("items").refresh();
+							that.getView().byId("tbPesaInd").getBinding("items").refresh();
 						},
 						error: function(error) {
 							// alert(this.oResourceBundle.getText("ErrorReadingProfile"));
@@ -136,7 +131,7 @@ sap.ui.define([
 			}
 		},
 		pesarImprimir: function(oEvent) {
-			var oTable = this.getView().byId("tbPesaKIT");
+			var oTable = this.getView().byId("tbPesaInd");
 			var oSelected = oTable.getSelectedItems()[0].oBindingContexts.viewModel.getObject();
 			var oModel = this.getModel();
 

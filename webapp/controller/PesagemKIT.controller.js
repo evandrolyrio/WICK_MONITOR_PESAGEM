@@ -214,7 +214,7 @@ sap.ui.define([
 									Werks: oSelected.Werks,
 									Impressora: oData.Impressora,
 									Quebra: quebra,
-									Bdmng: oSelected.Qtd_pesada
+									Bdmng: oSelected.Bdmng
 								},
 								success: function(oData) {
 									that.getModel("viewModel").setProperty("/busy", false);
@@ -257,7 +257,8 @@ sap.ui.define([
 							Matnr: oSelected.Matnr,
 							Meins: oSelected.Meins,
 							Plnbez: oSelected.Componente,
-							Qtd_pesada: oSelected.Qtd_pesada,
+							// Qtd_pesada: oSelected.Qtd_pesada, 
+							Qtd_pesada: oSelected.Bdmng,
 							Werks: oSelected.Werks,
 							Impressora: oData.Impressora,
 							Id_balanca: oData.Id_balanca,
