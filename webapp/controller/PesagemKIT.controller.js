@@ -266,6 +266,7 @@ sap.ui.define([
 						},
 						success: function(oData) {
 							if (!oData.Aufnr) {
+								that.getModel("viewModel").setProperty("/busy", false);
 								MessageBox.information("Esse componente já foi totalmente pesado para essa ordem, verificar");	
 							} else if (!oData.Qtd_pesada) {
 								that.getModel("viewModel").setProperty("/busy", false);

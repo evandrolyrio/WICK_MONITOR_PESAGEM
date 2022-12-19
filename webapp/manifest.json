@@ -139,7 +139,7 @@
 						"Ind"
 					],
 					"layout": "MidColumnFullScreen"
-				},				
+				},
 				{
 					"pattern": "Reimpressao/{aufnr}/:layout:",
 					"name": "Reimpressao",
@@ -184,7 +184,7 @@
 				"Ind": {
 					"viewName": "PesagemInd",
 					"controlAggregation": "midColumnPages"
-				},				
+				},
 				"Reimpressao": {
 					"viewName": "Reimpressao",
 					"controlAggregation": "midColumnPages"
