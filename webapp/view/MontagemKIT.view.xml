@@ -6,7 +6,7 @@
 			<form:SimpleForm editable="true" layout="ResponsiveGridLayout" singleContainerFullSize="true" labelSpanXL="4" labelSpanL="3" labelSpanM="12"
 				labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1">
 				<ObjectAttribute title="Ordem de Produção" text="{viewModel>/Aufnr}"/>
-				<ObjectAttribute title="ID do carrinho" text="{viewModel>/Id_carrinho}"/>
+				<ObjectAttribute title="Plaquinha" text="{viewModel>/Id_carrinho}"/>
 				<ObjectAttribute title="Centro" text="{viewModel>/Werks}"/>
 				<Toolbar>
 					<ToolbarSpacer/>
