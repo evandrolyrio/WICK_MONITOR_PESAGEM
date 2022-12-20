@@ -80,6 +80,9 @@
 								<Text text="Lote"/>
 							</Column>
 							<Column demandPopin="true" minScreenWidth="Desktop" popinDisplay="Inline">
+								<Text text="Qtd Disponível"/>
+							</Column>							
+							<Column demandPopin="true" minScreenWidth="Desktop" popinDisplay="Inline">
 								<Text text="Quebra Lote"/>
 							</Column>							
 
@@ -103,6 +106,7 @@
 									<Text text="{viewModel>Qtd_pesada}"/>
 									<Input value="{viewModel>Peso}" type="{Text}" fieldWidth="{60%}" editable="true"/>
 									<Input value="{viewModel>Charg}" type="{Text}" fieldWidth="{60%}" editable="true"/>
+									<Text text="{viewModel>Qtd_disp}"/>
 									<CheckBox text="Quebra Lote" selected="{viewModel>Quebra}" />
 									<!--<Text text="{viewModel>Charg}"/>-->
 
