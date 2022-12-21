@@ -258,7 +258,7 @@ sap.ui.define([
 							Meins: oSelected.Meins,
 							Plnbez: oSelected.Componente,
 							// Qtd_pesada: oSelected.Qtd_pesada, 
-							Qtd_pesada: oSelected.Bdmng,
+							Qtd_pesada: oSelected.Qtd_pesada,
 							Werks: oSelected.Werks,
 							Impressora: oData.Impressora,
 							Id_balanca: oData.Id_balanca,
