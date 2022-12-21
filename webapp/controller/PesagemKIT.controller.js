@@ -262,7 +262,8 @@ sap.ui.define([
 							Werks: oSelected.Werks,
 							Impressora: oData.Impressora,
 							Id_balanca: oData.Id_balanca,
-							Quebra: quebra
+							Quebra: quebra,
+							Qtd_nes: oSelected.Bdmng
 						},
 						success: function(oData) {
 							if (!oData.Aufnr) {
