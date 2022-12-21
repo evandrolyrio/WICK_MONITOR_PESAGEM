@@ -224,7 +224,7 @@ sap.ui.define([
 									    // MessageBox.information(" Ordem de produção ainda não liberada.");
 									    MessageBox.information(oData.Msg);
 									} else {
-										oTable.removeSelections();
+										// oTable.removeSelections();
 										// MessageBox.information("Impressão realizada com sucesso");
 									}
 								},
