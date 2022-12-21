@@ -6,7 +6,7 @@
 				<Label text="Ordem de produção"/>
 				<Input value="{/Aufnr}" showSuggestion="true" showTableSuggestionValueHelp="false"
 					suggestionItemSelected="suggestionItemSelected"></Input>	
-				<Label text="ID do carrinho"/>					
+				<Label text="Placa"/>					
 				<Input value="{/Id_carrinho}" showSuggestion="true" showTableSuggestionValueHelp="false"
 					suggestionItemSelected="suggestionItemSelected"></Input>		
 			</l:VerticalLayout>
