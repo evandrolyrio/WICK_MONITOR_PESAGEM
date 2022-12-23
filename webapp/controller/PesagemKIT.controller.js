@@ -278,7 +278,7 @@ sap.ui.define([
 								MessageBox.information(oData.Msg);
 							} else {
 								that.getModel("viewModel").setProperty("/busy", false);
-								oTable.removeSelections();
+								// oTable.removeSelections();
 								// MessageBox.information("Impressão realizada com sucesso");								
 							}
 
