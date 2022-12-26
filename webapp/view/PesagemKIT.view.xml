@@ -24,6 +24,7 @@
 				</ComboBox>
 				<Toolbar>
 					<ToolbarSpacer/>
+					<Button text="Atribuir Lote" icon="sap-icon://expand-group" press="lote"/>
 					<Button text="Atualiza peso" icon="sap-icon://refresh" press="atualizaPeso"/>
 					<Button text="Pesar e Imprimir pesagem" icon="sap-icon://compare-2" press="pesarImprimir"/>
 					<!--<Button text="Dividir Pesagem" icon="sap-icon://duplicate" press="dividirPesagem"/>-->

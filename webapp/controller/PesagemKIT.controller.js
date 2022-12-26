@@ -62,7 +62,8 @@ sap.ui.define([
 						Idnrk: that._idnrk,
 						Gstrp: that._gstrp,
 						Id_balanca: 'N',
-						Sku: ""
+						Sku: "",
+						Charg: 'N'
 					},
 					"$expand": "Items",
 					success: function(oData) {
@@ -106,6 +107,40 @@ sap.ui.define([
 			oViewModel.setProperty("/Id_balanca", sData);
 
 		},	
+		lote: function(oEvent) {
+			var that = this;
+			var oData = this.getModel("viewModel").getData();
+			var oTable = this.getView().byId("tbPesaKIT");
+			var oSelected = oTable.getSelectedItems()[0].oBindingContexts.viewModel.getObject();			
+			this.scanHU().then(function (scanned) {
+				var barcode = scanned.substr(4, 10);
+				var oModel = that.getModel();
+				oModel.invalidate();
+				oModel.callFunction("/GetPesagemKIT", {
+					method: "GET",
+					urlParameters: {
+						Werks: that._werks,
+						Matnr: that._matnr,
+						Aufnr: that._aufnr,
+						Idnrk: that._idnrk,
+						Gstrp: that._gstrp,
+						Id_balanca: oData.Id_balanca,
+						Sku: oSelected.Componente,
+						Charg: barcode
+					},
+					success: function(Data) {
+						that.getModel("viewModel").setProperty("/PesaKITSet", Data.results);
+						that.getModel("viewModel").setProperty("/busy", false);
+						that.getView().byId("tbPesaKIT").getBinding("items").refresh();
+					},
+					error: function(error) {
+						// alert(this.oResourceBundle.getText("ErrorReadingProfile"));
+						// oGeneralModel.setProperty("/sideListBusy", false);
+						that.getModel("viewModel").setProperty("/busy", false);
+					}
+				});						
+			});								
+		},
 		atualizaPeso: function(oEvent) {
 			var oTable = this.getView().byId("tbPesaKIT");
 			var oSelected = oTable.getSelectedItems()[0].oBindingContexts.viewModel.getObject();			
@@ -129,7 +164,8 @@ sap.ui.define([
 							Idnrk: this._idnrk,
 							Gstrp: this._gstrp,
 							Id_balanca: oData.Id_balanca,
-							Sku: "0"
+							Sku: "0",
+							Charg: 'N'
 						},
 						success: function(Data) {
 							that.getModel("viewModel").setProperty("/PesaKITSet", Data.results);
@@ -152,7 +188,8 @@ sap.ui.define([
 							Idnrk: this._idnrk,
 							Gstrp: this._gstrp,
 							Id_balanca: oData.Id_balanca,
-							Sku: oSelected.Componente
+							Sku: oSelected.Componente,
+							Charg: oSelected.Charg
 						},
 						success: function(Data) {
 							that.getModel("viewModel").setProperty("/PesaKITSet", Data.results);
