@@ -65,6 +65,32 @@ sap.ui.define([
 			// this.getRouter().getRoute("PesagemKIT").attachPatternMatched(this._onObjectMatched, this);
 
 		},
+		lerCod: function(oEvent) {
+			var that = this;
+			this.scanHU().then(function (scanned) {
+				var barcode = scanned;
+				var oModel = that.getModel();
+				that._barcode = barcode;
+				oModel.invalidate();
+				oModel.callFunction("/GetPesagemInd", {
+					method: "GET",
+					urlParameters: {
+						Barcode: barcode,
+						Id_balanca: 'N'
+					},
+					success: function(oData) {
+						that.getModel("viewModel").setProperty("/PesaKITSet", oData.results);
+						that.getModel("viewModel").setProperty("/busy", false);
+						that.getView().byId("tbPesaInd").getBinding("items").refresh();
+					},
+					error: function(error) {
+						// alert(this.oResourceBundle.getText("ErrorReadingProfile"));
+						// oGeneralModel.setProperty("/sideListBusy", false);
+						that.getModel("viewModel").setProperty("/busy", false);
+					}
+				});	
+			});	
+		},
 		onChangeImpressora: function(oEvent) {
 			var oViewModel = this.getModel("viewModel");
 			var sData = oEvent.getParameter("selectedItem").getBindingContext().getObject().Id_impressora;
