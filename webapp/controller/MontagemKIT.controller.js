@@ -116,7 +116,9 @@ sap.ui.define([
 					success: function(oData) {	
 						if	(oData.results.length == '0') {
 							MessageBox.information("Não foi possível localizar a etiqueta");
-						} else {						
+						} else if (that.getModel("viewModel").getProperty("/MontaKITSet").length == oData.results.length) {
+							MessageBox.information("Etiqueta já lida pra esse KIT");
+						} else {
 							that.getModel("viewModel").setProperty("/MontaKITSet", oData.results);
 							that.getModel("viewModel").setProperty("/busy", false);
 							that.getView().byId("tbMontaKIT").getBinding("items").refresh();
