@@ -201,7 +201,7 @@ sap.ui.define([
 									that.getModel("viewModel").setProperty("/busy", false);
 									if (!oData.Charg) {
 									    // MessageBox.information(" Ordem de produção ainda não liberada.");
-									    MessageBox.information(oData.Msg);
+									    MessageBox.information("Sem estoque");
 									} else {
 										oTable.removeSelections();
 										// MessageBox.information("Impressão realizada com sucesso");
@@ -244,7 +244,7 @@ sap.ui.define([
 							} else if (!oData.Charg) {
 								that.getModel("viewModel").setProperty("/busy", false);
 								// MessageBox.information("Erro no movimento 261");
-								MessageBox.information(oData.Msg);
+								MessageBox.information("Sem estoque");
 							} else {
 								that.getModel("viewModel").setProperty("/busy", false);
 								oTable.removeSelections();
