@@ -20,6 +20,14 @@ sap.ui.define([
 				Peso: ""
 			}), "viewModel");
 			var that = this;
+			
+			this.getModel().metadataLoaded().then(function() {
+				that.getModel().read("/ImpressoraSet", {
+					success: function(oData) {
+						that.getModel("viewModel").setProperty("/ImpressoraSet", oData.results);
+					}
+				});
+			});			
 
 			this.getRouter().getRoute("Reimpressao").attachPatternMatched(function(oEvent) {
 				var oModel = that.getModel();
@@ -46,6 +54,12 @@ sap.ui.define([
 				});
 			});
 		},
+		onChangeImpressora: function(oEvent) {
+			var oViewModel = this.getModel("viewModel");
+			var sData = oEvent.getParameter("selectedItem").getBindingContext().getObject().Id_impressora;
+			oViewModel.setProperty("/Impressora", sData);
+
+		},			
 		Imprimir: function(oEvent) {
 			var oTable = this.getView().byId("tbReimpressao");
 			var oSelected = oTable.getSelectedItems()[0].oBindingContexts.viewModel.getObject();
@@ -53,6 +67,7 @@ sap.ui.define([
 			var oModel = this.getModel();
 			var that = this;
 			that.getModel("viewModel").setProperty("/busy", true);
+			var oData = this.getModel("viewModel").getData();
 			for (var i = 0; i < items; i++) {
 
 				var item = oTable.getSelectedItems()[i].oBindingContexts.viewModel.getObject();
@@ -61,7 +76,8 @@ sap.ui.define([
 				oModel.callFunction("/ReimprimeEtiqueta", {
 					method: "GET",
 					urlParameters: {
-						Zetiqid: item.Zetiqid
+						Zetiqid: item.Zetiqid,
+						Impressora: oData.Impressora
 					},
 					success: function(oData) {
 						that.getModel("viewModel").setProperty("/busy", false);

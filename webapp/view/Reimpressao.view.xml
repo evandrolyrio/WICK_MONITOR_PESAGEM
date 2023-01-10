@@ -5,6 +5,14 @@
 		<semantic:headerContent>
 			<form:SimpleForm editable="true" layout="ResponsiveGridLayout" singleContainerFullSize="true" labelSpanXL="4" labelSpanL="3" labelSpanM="12"
 				labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1">
+				<Label text="Impressora"/>
+				<ComboBox change="changeImpressora" selectedKey="{viewModel>/Id_impressora}"
+					items="{ path: '/ImpressoraSet'}" selectionChange="onChangeImpressora">
+					<!--showSecondaryValues="true">-->
+					<items>
+						<core:ListItem text="{Id_impressora}" key="{Cod}" additionalText="{Cod}"/>
+					</items>
+				</ComboBox>
 				<Toolbar>
 					<ToolbarSpacer/>
 					<Button text="Imprimir Etiqueta" icon="sap-icon://print" press="Imprimir"/>
