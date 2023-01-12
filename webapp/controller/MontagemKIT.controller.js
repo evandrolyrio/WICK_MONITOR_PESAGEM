@@ -193,6 +193,7 @@ sap.ui.define([
 				},
 				error: function(error) {
 					that.getModel("viewModel").setProperty("/busy", false);
+					MessageBox.information("Ordem bloqueada.");
 				}
 			});			
 		},
