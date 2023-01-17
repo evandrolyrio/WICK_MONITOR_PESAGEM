@@ -36,7 +36,7 @@ sap.ui.define([
 						that.getModel("viewModel").setProperty("/BalancaSet", oData.results);
 					}
 				});
-			});			
+			});
 
 			this.getRouter().getRoute("Kit").attachPatternMatched(function(oEvent) {
 				var oModel = that.getModel();
@@ -106,13 +106,13 @@ sap.ui.define([
 			var sData = oEvent.getParameter("selectedItem").getBindingContext().getObject().Id_balanca;
 			oViewModel.setProperty("/Id_balanca", sData);
 
-		},	
+		},
 		lote: function(oEvent) {
 			var that = this;
 			var oData = this.getModel("viewModel").getData();
 			var oTable = this.getView().byId("tbPesaKIT");
-			var oSelected = oTable.getSelectedItems()[0].oBindingContexts.viewModel.getObject();			
-			this.scanHU().then(function (scanned) {
+			var oSelected = oTable.getSelectedItems()[0].oBindingContexts.viewModel.getObject();
+			this.scanHU().then(function(scanned) {
 				var barcode = scanned.substr(4, 10);
 				var oModel = that.getModel();
 				oModel.invalidate();
@@ -138,23 +138,23 @@ sap.ui.define([
 						// oGeneralModel.setProperty("/sideListBusy", false);
 						that.getModel("viewModel").setProperty("/busy", false);
 					}
-				});						
-			});								
+				});
+			});
 		},
 		atualizaPeso: function(oEvent) {
 			var oTable = this.getView().byId("tbPesaKIT");
-			var oSelected = oTable.getSelectedItems()[0].oBindingContexts.viewModel.getObject();			
+			var oSelected = oTable.getSelectedItems()[0].oBindingContexts.viewModel.getObject();
 			var oModel = this.getModel();
 			var oData = this.getModel("viewModel").getData();
 			var that = this;
-			
+
 			if (!oData.Id_balanca) {
 				MessageBox.error("Escolher balança");
 			} else {
-				
+
 				that.getModel("viewModel").setProperty("/busy", true);
 				oModel.invalidate();
-				if	(!oSelected.Componente) {
+				if (!oSelected.Componente) {
 					oModel.callFunction("/GetPesagemKIT", {
 						method: "GET",
 						urlParameters: {
@@ -177,9 +177,9 @@ sap.ui.define([
 							// oGeneralModel.setProperty("/sideListBusy", false);
 							that.getModel("viewModel").setProperty("/busy", false);
 						}
-					});	
+					});
 				} else {
-    				oModel.callFunction("/GetPesagemKIT", {
+					oModel.callFunction("/GetPesagemKIT", {
 						method: "GET",
 						urlParameters: {
 							Werks: this._werks,
@@ -201,133 +201,139 @@ sap.ui.define([
 							// oGeneralModel.setProperty("/sideListBusy", false);
 							that.getModel("viewModel").setProperty("/busy", false);
 						}
-					});						
+					});
 				}
-				
+
 			}
 		},
 		pesarImprimir: function(oEvent) {
 			var oTable = this.getView().byId("tbPesaKIT");
+			var items = oTable.getSelectedItems().length;
 			var oSelected = oTable.getSelectedItems()[0].oBindingContexts.viewModel.getObject();
 			var oModel = this.getModel();
 
 			var oData = this.getModel("viewModel").getData();
 			var that = this;
-			
+
 			var quebra = "N";
-			if (oSelected.Quebra === true) {
-				quebra = "S";
-			}
-			
-			if (!oData.Id_balanca) {
-				if (!oData.Impressora) {
-					MessageBox.error("Escolher impressora");
-				} else {
-					if (!oSelected.Peso) {
-						MessageBox.error("Campo Qtd.Pesada está vazio e é obrigatório em pesagem manual.");
+			if (items <= 1) {
+
+				if (oSelected.Quebra === true) {
+					quebra = "S";
+				}
+
+				if (!oData.Id_balanca) {
+					if (!oData.Impressora) {
+						MessageBox.error("Escolher impressora");
 					} else {
-						// MessageBox.information("Pesagem manual, o peso considerado será o informado.");
-						this.confirmAction("Pesagem manual, o peso considerado será o informado:" + oSelected.Peso, "Confirm", function(answer) {
+						if (!oSelected.Peso) {
+							MessageBox.error("Campo Qtd.Pesada está vazio e é obrigatório em pesagem manual.");
+						} else {
+							// MessageBox.information("Pesagem manual, o peso considerado será o informado.");
+							this.confirmAction("Pesagem manual, o peso considerado será o informado:" + oSelected.Peso, "Confirm", function(answer) {
 
-							if (answer !== sap.m.MessageBox.Action.YES) {
-								return;
-							}
-
-							that.getModel("viewModel").setProperty("/busy", true);
-							oModel.invalidate();
-							oModel.callFunction("/ImprimeEtiqueta", {
-								method: "GET",
-								urlParameters: {
-									Aufnr: oSelected.Aufnr,
-									Charg: oSelected.Charg,
-									Charg_op: oSelected.Charg_op,
-									Data_valid: oSelected.Expirydate,
-									Maktx: oSelected.Maktx,
-									Maktx_op: oSelected.Maktx_c,
-									Matnr: oSelected.Matnr,
-									Meins: oSelected.Meins,
-									Plnbez: oSelected.Componente,
-									Qtd_pesada: oSelected.Peso,
-									Werks: oSelected.Werks,
-									Impressora: oData.Impressora,
-									Quebra: quebra,
-									Bdmng: oSelected.Bdmng
-								},
-								success: function(oData) {
-									that.getModel("viewModel").setProperty("/busy", false);
-									if (!oData.Aufnr) {
-										MessageBox.information("Esse componente já foi totalmente pesado para essa ordem, verificar");	
-									} else if (!oData.Charg_op) {
-									    // MessageBox.information(" Ordem de produção ainda não liberada.");
-									    MessageBox.information(oData.Msg);
-									} else {
-										// oTable.removeSelections();
-										// MessageBox.information("Impressão realizada com sucesso");
-									}
-								},
-								error: function(error) {
-									// alert(this.oResourceBundle.getText("ErrorReadingProfile"));
-									// oGeneralModel.setProperty("/sideListBusy", false);
-									that.getModel("viewModel").setProperty("/busy", false);
-									MessageBox.information("Erro na impressão");
+								if (answer !== sap.m.MessageBox.Action.YES) {
+									return;
 								}
+
+								that.getModel("viewModel").setProperty("/busy", true);
+								oModel.invalidate();
+								oModel.callFunction("/ImprimeEtiqueta", {
+									method: "GET",
+									urlParameters: {
+										Aufnr: oSelected.Aufnr,
+										Charg: oSelected.Charg,
+										Charg_op: oSelected.Charg_op,
+										Data_valid: oSelected.Expirydate,
+										Maktx: oSelected.Maktx,
+										Maktx_op: oSelected.Maktx_c,
+										Matnr: oSelected.Matnr,
+										Meins: oSelected.Meins,
+										Plnbez: oSelected.Componente,
+										Qtd_pesada: oSelected.Peso,
+										Werks: oSelected.Werks,
+										Impressora: oData.Impressora,
+										Quebra: quebra,
+										Bdmng: oSelected.Bdmng
+									},
+									success: function(oData) {
+										that.getModel("viewModel").setProperty("/busy", false);
+										if (!oData.Aufnr) {
+											MessageBox.information("Esse componente já foi totalmente pesado para essa ordem, verificar");
+										} else if (!oData.Charg_op) {
+											// MessageBox.information(" Ordem de produção ainda não liberada.");
+											MessageBox.information(oData.Msg);
+										} else {
+											// oTable.removeSelections();
+											// MessageBox.information("Impressão realizada com sucesso");
+										}
+									},
+									error: function(error) {
+										// alert(this.oResourceBundle.getText("ErrorReadingProfile"));
+										// oGeneralModel.setProperty("/sideListBusy", false);
+										that.getModel("viewModel").setProperty("/busy", false);
+										MessageBox.information("Erro na impressão");
+									}
+								});
 							});
+						}
+					}
+				} else {
+					if (!oData.Impressora) {
+						MessageBox.error("Escolher impressora");
+					} else {
+
+						that.getModel("viewModel").setProperty("/busy", true);
+						oModel.invalidate();
+						oModel.callFunction("/ImprimeEtiquetaBal", {
+							method: "GET",
+							urlParameters: {
+								Aufnr: oSelected.Aufnr,
+								Charg: oSelected.Charg,
+								Charg_op: oSelected.Charg_op,
+								Data_valid: oSelected.Expirydate,
+								Maktx: oSelected.Maktx,
+								Maktx_op: oSelected.Maktx_c,
+								Matnr: oSelected.Matnr,
+								Meins: oSelected.Meins,
+								Plnbez: oSelected.Componente,
+								// Qtd_pesada: oSelected.Qtd_pesada, 
+								Qtd_pesada: oSelected.Qtd_pesada,
+								Werks: oSelected.Werks,
+								Impressora: oData.Impressora,
+								Id_balanca: oData.Id_balanca,
+								Quebra: quebra,
+								Qtd_nes: oSelected.Bdmng
+							},
+							success: function(oData) {
+								if (!oData.Aufnr) {
+									that.getModel("viewModel").setProperty("/busy", false);
+									MessageBox.information("Esse componente já foi totalmente pesado para essa ordem, verificar");
+								} else if (!oData.Qtd_pesada) {
+									that.getModel("viewModel").setProperty("/busy", false);
+									MessageBox.information("Peso fora da tolerância");
+								} else if (!oData.Charg_op) {
+									that.getModel("viewModel").setProperty("/busy", false);
+									// MessageBox.information("Erro no movimento 261");
+									MessageBox.information(oData.Msg);
+								} else {
+									that.getModel("viewModel").setProperty("/busy", false);
+									// oTable.removeSelections();
+									// MessageBox.information("Impressão realizada com sucesso");								
+								}
+
+							},
+							error: function(error) {
+								// alert(this.oResourceBundle.getText("ErrorReadingProfile"));
+								// oGeneralModel.setProperty("/sideListBusy", false);
+								that.getModel("viewModel").setProperty("/busy", false);
+								MessageBox.information("Erro na impressão");
+							}
 						});
 					}
 				}
 			} else {
-				if (!oData.Impressora) {
-					MessageBox.error("Escolher impressora");
-				} else {
-
-					that.getModel("viewModel").setProperty("/busy", true);
-					oModel.invalidate();
-					oModel.callFunction("/ImprimeEtiquetaBal", {
-						method: "GET",
-						urlParameters: {
-							Aufnr: oSelected.Aufnr,
-							Charg: oSelected.Charg,
-							Charg_op: oSelected.Charg_op,
-							Data_valid: oSelected.Expirydate,
-							Maktx: oSelected.Maktx,
-							Maktx_op: oSelected.Maktx_c,
-							Matnr: oSelected.Matnr,
-							Meins: oSelected.Meins,
-							Plnbez: oSelected.Componente,
-							// Qtd_pesada: oSelected.Qtd_pesada, 
-							Qtd_pesada: oSelected.Qtd_pesada,
-							Werks: oSelected.Werks,
-							Impressora: oData.Impressora,
-							Id_balanca: oData.Id_balanca,
-							Quebra: quebra,
-							Qtd_nes: oSelected.Bdmng
-						},
-						success: function(oData) {
-							if (!oData.Aufnr) {
-								that.getModel("viewModel").setProperty("/busy", false);
-								MessageBox.information("Esse componente já foi totalmente pesado para essa ordem, verificar");	
-							} else if (!oData.Qtd_pesada) {
-								that.getModel("viewModel").setProperty("/busy", false);
-								MessageBox.information("Peso fora da tolerância");							
-							} else if (!oData.Charg_op) {
-								that.getModel("viewModel").setProperty("/busy", false);
-								// MessageBox.information("Erro no movimento 261");
-								MessageBox.information(oData.Msg);
-							} else {
-								that.getModel("viewModel").setProperty("/busy", false);
-								// oTable.removeSelections();
-								// MessageBox.information("Impressão realizada com sucesso");								
-							}
-
-						},
-						error: function(error) {
-							// alert(this.oResourceBundle.getText("ErrorReadingProfile"));
-							// oGeneralModel.setProperty("/sideListBusy", false);
-							that.getModel("viewModel").setProperty("/busy", false);
-							MessageBox.information("Erro na impressão");
-						}
-					});
-				}				
+				MessageBox.information("Tem mais de um item selecionado");
 			}
 
 		}
