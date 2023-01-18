@@ -93,8 +93,12 @@ sap.ui.define([
 			if ( !oDialogData.Aufnr ) {
 				oDialogData.Aufnr = "0";
 			}
+			if ( !oDialogData.Matnr ) {
+				oDialogData.Matnr = "0";
+			}			
 			this.getRouter().navTo("Reimpressao", {
 				aufnr: oDialogData.Aufnr,
+				matnr: oDialogData.Matnr,
 				layout: this.getNextUiState(1).layout
 			});
 		},	
@@ -191,7 +195,8 @@ sap.ui.define([
 
 				this.oDialog.setModel(this.getModel());
 				this.oDialog.setModel(new JSONModel({
-					Aufnr: ""
+					Aufnr: "",
+					Matnr: ""
 				}, "dialog"));
 
 				this.oDialog.setBindingContext(this._currentContext);

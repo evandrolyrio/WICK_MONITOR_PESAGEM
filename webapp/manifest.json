@@ -141,7 +141,7 @@
 					"layout": "MidColumnFullScreen"
 				},
 				{
-					"pattern": "Reimpressao/{aufnr}/:layout:",
+					"pattern": "Reimpressao/{aufnr}/{matnr}/:layout:",
 					"name": "Reimpressao",
 					"target": [
 						"Launcher",

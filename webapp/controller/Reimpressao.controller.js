@@ -33,13 +33,15 @@ sap.ui.define([
 				var oModel = that.getModel();
 				var _params = oEvent.getParameters();
 				this._aufnr = _params.arguments.aufnr;
+				this._matnr = _params.arguments.matnr;
 
 				that.getModel("viewModel").setProperty("/busy", true);
 				oModel.invalidate();
 				oModel.callFunction("/GetReimpressao", {
 					method: "GET",
 					urlParameters: {
-						Aufnr: this._aufnr
+						Aufnr: this._aufnr,
+						Matnr: this._matnr
 					},
 					success: function(oData) {
 						that.getModel("viewModel").setProperty("/ReimpressaoSet", oData.results);

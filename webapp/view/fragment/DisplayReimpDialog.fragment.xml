@@ -6,6 +6,9 @@
 				<Label text="Ordem de produção"/>
 				<Input value="{/Aufnr}" showSuggestion="true" showTableSuggestionValueHelp="false"
 					suggestionItemSelected="suggestionItemSelected"></Input>
+				<Label text="Componente"/>
+				<Input value="{/Matnr}" showSuggestion="true" showTableSuggestionValueHelp="false"
+					suggestionItemSelected="suggestionItemSelected"></Input>	
 			</l:VerticalLayout>
 		</f:SimpleForm>
 		<beginButton>
