@@ -264,6 +264,7 @@ sap.ui.define([
 											// MessageBox.information(" Ordem de produção ainda não liberada.");
 											MessageBox.information(oData.Msg);
 										} else {
+											that.toastMessage("Impressão realizada com sucesso");
 											// oTable.removeSelections();
 											// MessageBox.information("Impressão realizada com sucesso");
 										}
@@ -318,6 +319,7 @@ sap.ui.define([
 									MessageBox.information(oData.Msg);
 								} else {
 									that.getModel("viewModel").setProperty("/busy", false);
+									that.toastMessage("Impressão realizada com sucesso");
 									// oTable.removeSelections();
 									// MessageBox.information("Impressão realizada com sucesso");								
 								}
