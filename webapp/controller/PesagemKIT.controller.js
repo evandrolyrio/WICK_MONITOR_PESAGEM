@@ -184,7 +184,7 @@ sap.ui.define([
 						urlParameters: {
 							Werks: this._werks,
 							Matnr: this._matnr,
-							Aufnr: this._aufnr,
+							Aufnr: oSelected.Aufnr,
 							Idnrk: this._idnrk,
 							Gstrp: this._gstrp,
 							Id_balanca: oData.Id_balanca,
