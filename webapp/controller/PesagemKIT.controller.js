@@ -63,7 +63,8 @@ sap.ui.define([
 						Gstrp: that._gstrp,
 						Id_balanca: 'N',
 						Sku: "",
-						Charg: 'N'
+						Charg: 'N',
+						Aufnr_aux: '0'
 					},
 					"$expand": "Items",
 					success: function(oData) {
@@ -126,7 +127,8 @@ sap.ui.define([
 						Gstrp: that._gstrp,
 						Id_balanca: oData.Id_balanca,
 						Sku: oSelected.Componente,
-						Charg: barcode
+						Charg: barcode,
+						Aufnr_aux: '0'
 					},
 					success: function(Data) {
 						that.getModel("viewModel").setProperty("/PesaKITSet", Data.results);
@@ -165,7 +167,8 @@ sap.ui.define([
 							Gstrp: this._gstrp,
 							Id_balanca: oData.Id_balanca,
 							Sku: "0",
-							Charg: 'N'
+							Charg: 'N',
+							Aufnr_aux: '0'
 						},
 						success: function(Data) {
 							that.getModel("viewModel").setProperty("/PesaKITSet", Data.results);
@@ -184,12 +187,13 @@ sap.ui.define([
 						urlParameters: {
 							Werks: this._werks,
 							Matnr: this._matnr,
-							Aufnr: oSelected.Aufnr,
+							Aufnr: this._aufnr,
 							Idnrk: this._idnrk,
 							Gstrp: this._gstrp,
 							Id_balanca: oData.Id_balanca,
 							Sku: oSelected.Componente,
-							Charg: oSelected.Charg
+							Charg: oSelected.Charg,
+							Aufnr_aux: oSelected.Aufnr
 						},
 						success: function(Data) {
 							that.getModel("viewModel").setProperty("/PesaKITSet", Data.results);
