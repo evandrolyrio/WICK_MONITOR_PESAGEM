@@ -83,13 +83,15 @@ sap.ui.define([
 					},
 					success: function(oData) {
 						that.getModel("viewModel").setProperty("/busy", false);
-						MessageBox.information("Impressão realizada com sucesso");
+						that.toastMessage("Impressão realizada com sucesso");
+						// MessageBox.information("Impressão realizada com sucesso");
 					},
 					error: function(error) {
 						// alert(this.oResourceBundle.getText("ErrorReadingProfile"));
 						// oGeneralModel.setProperty("/sideListBusy", false);
 						that.getModel("viewModel").setProperty("/busy", false);
-						MessageBox.information("Erro na impressão");
+						// MessageBox.information("Erro na impressão");
+						that.toastMessage("Impressão realizada com sucesso");
 					}
 				});
 			}
