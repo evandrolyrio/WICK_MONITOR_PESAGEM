@@ -75,6 +75,7 @@ sap.ui.define([
 											that.getModel("viewModel").setProperty("/MontaKITSet", Data.results);
 											that.getModel("viewModel").setProperty("/busy", false);
 											that.getView().byId("tbMontaKIT").getBinding("items").refresh();
+											that.lerCod();
 										}
 										
 									},
