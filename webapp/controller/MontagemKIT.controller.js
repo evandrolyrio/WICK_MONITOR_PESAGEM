@@ -123,7 +123,7 @@ sap.ui.define([
 							that.getModel("viewModel").setProperty("/busy", false);
 							that.getView().byId("tbMontaKIT").getBinding("items").refresh();
 						}
-						// that.lerCod();
+						that.lerCod();
 					},
 					error: function(error) {
 						that.getModel("viewModel").setProperty("/busy", false);
