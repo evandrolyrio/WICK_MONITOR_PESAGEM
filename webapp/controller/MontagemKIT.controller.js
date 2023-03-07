@@ -75,6 +75,7 @@ sap.ui.define([
 											that.getModel("viewModel").setProperty("/MontaKITSet", Data.results);
 											that.getModel("viewModel").setProperty("/busy", false);
 											that.getView().byId("tbMontaKIT").getBinding("items").refresh();
+										    that.scanHU().close();
 											// that.lerCod();
 										}
 										
@@ -124,14 +125,14 @@ sap.ui.define([
 							that.getModel("viewModel").setProperty("/busy", false);
 							that.getView().byId("tbMontaKIT").getBinding("items").refresh();
 						}
-						that.lerCod();
 					},
 					error: function(error) {
 						that.getModel("viewModel").setProperty("/busy", false);
 						MessageBox.information("Erro de Tolerancia");
 					}
 				});	
-			});					
+			});	
+			
 		},
 		deletar: function() {
 			var oTable = this.getView().byId("tbMontaKIT");
